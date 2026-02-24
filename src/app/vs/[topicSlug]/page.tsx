@@ -2,6 +2,17 @@ import { notFound } from "next/navigation";
 import { repo } from "@/lib/data/localRepository";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ topicSlug: string }>;
+}) {
+  const { topicSlug } = await params;
+  const topic = await repo.getTopic("vs", topicSlug);
+  if (!topic) return { title: "VŠ learning" };
+  return { title: `${topic.title} (VŠ)` };
+}
+
 export default async function VSTopicPage({
   params,
 }: {

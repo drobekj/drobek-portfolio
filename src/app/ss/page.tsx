@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { repo } from "@/lib/data/localRepository";
 
+export const metadata = {
+  title: "SŠ learning",
+};
+
 export default async function SSPage() {
   const cat = await repo.getCatalog("ss");
 
