@@ -1,28 +1,15 @@
 {
   "topics": [
-    { "slug": "mnoziny", "title": "Množiny", "items": [] },
-    { "slug": "vyrazy", "title": "Výrazy", "items": [] },
-{
-  "slug": "rovnice_a_nerovnice",
-  "title": "Rovnice a nerovnice",
-  "items": [
     {
-      "id": "ss_rovnice_test_01",
-      "title": "Test PDF",
-      "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/test.pdf",
-      "tags": ["test"],
-      "type": "slides",
-      "year": 2026,
-      "level": "easy"
+      "slug": "rovnice_a_nerovnice",
+      "title": "Rovnice A Nerovnice",
+      "items": [
+        {
+          "id": "ss_rovnice_a_nerovnice_1",
+          "title": "Test",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/test.pdf"
+        }
+      ]
     }
-  ]
-},
-    { "slug": "funkce", "title": "Funkce", "items": [] },
-    { "slug": "planimetrie", "title": "Planimetrie", "items": [] },
-    { "slug": "stereometrie", "title": "Stereometrie", "items": [] },
-    { "slug": "analyticka_geometrie", "title": "Analytická geometrie", "items": [] },
-    { "slug": "posloupnosti", "title": "Posloupnosti", "items": [] },
-    { "slug": "financni_matematika", "title": "Finanční matematika", "items": [] },
-    { "slug": "kombinatorika", "title": "Kombinatorika", "items": [] }
   ]
 }
