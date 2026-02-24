@@ -1,15 +1,155 @@
 {
   "topics": [
     {
+      "slug": "analyticka_geometrie",
+      "title": "Analytická geometrie",
+      "items": []
+    },
+    {
+      "slug": "financni_matematika",
+      "title": "Finanční matematika",
+      "items": []
+    },
+    {
+      "slug": "funkce",
+      "title": "Funkce",
+      "items": []
+    },
+    {
+      "slug": "kombinatorika",
+      "title": "Kombinatorika",
+      "items": [
+        {
+          "id": "ss_kombinatorika_2",
+          "title": "M3 Kombin Bezopak Goa Klik",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_bezopak_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_1",
+          "title": "M3 Kombin Bezopak Goa",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_bezopak_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_4",
+          "title": "M3 Kombin Cisla Goa Klik",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_cisla_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_3",
+          "title": "M3 Kombin Cisla Goa",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_cisla_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_6",
+          "title": "M3 Kombin Faktorial Goa Klik",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_faktorial_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_5",
+          "title": "M3 Kombin Faktorial Goa",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_faktorial_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_8",
+          "title": "M3 Kombin Pravidla Goa Klik",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_pravidla_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_7",
+          "title": "M3 Kombin Pravidla Goa",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_pravidla_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_10",
+          "title": "M3 Kombin Sopak Goa Klik",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_sopak_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_kombinatorika_9",
+          "title": "M3 Kombin Sopak Goa",
+          "pdfPath": "/pdfs/ss/kombinatorika/m3_kombin_sopak_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "slug": "mnoziny",
+      "title": "Množiny",
+      "items": []
+    },
+    {
+      "slug": "planimetrie",
+      "title": "Planimetrie",
+      "items": []
+    },
+    {
+      "slug": "posloupnosti",
+      "title": "Posloupnosti",
+      "items": []
+    },
+    {
       "slug": "rovnice_a_nerovnice",
-      "title": "Rovnice A Nerovnice",
+      "title": "Rovnice a nerovnice",
       "items": [
         {
           "id": "ss_rovnice_a_nerovnice_1",
-          "title": "Test",
-          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/test.pdf"
+          "title": "Test PDF (ručně)",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/test.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
         }
       ]
+    },
+    {
+      "slug": "stereometrie",
+      "title": "Stereometrie",
+      "items": []
+    },
+    {
+      "slug": "vyrazy",
+      "title": "Výrazy",
+      "items": []
     }
   ]
 }
