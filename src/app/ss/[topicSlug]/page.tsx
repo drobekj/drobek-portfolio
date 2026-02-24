@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { repo } from "@/lib/data/localRepository";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export default async function SSTopicPage({
   params,
@@ -13,6 +14,13 @@ export default async function SSTopicPage({
 
   return (
     <div>
+      <Breadcrumbs
+	items={[
+	{ href: "/", label: "Home" },
+    	{ href: "/ss", label: "SŠ learning" },
+    	{ href: `/ss/${topic.slug}`, label: topic.title },
+  	]}
+      />
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{topic.title}</h1>
