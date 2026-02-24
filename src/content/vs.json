@@ -1,0 +1,11 @@
+{
+  "topics": [
+    { "slug": "opakovani_zakladu_matematiky", "title": "Opakování základů matematiky", "items": [] },
+    { "slug": "diferencialni_pocet", "title": "Diferenciální počet", "items": [] },
+    { "slug": "linearni_algebra", "title": "Lineární algebra", "items": [] },
+    { "slug": "analyticka_geometrie", "title": "Analytická geometrie", "items": [] },
+    { "slug": "integralni_pocet", "title": "Integrální počet", "items": [] },
+    { "slug": "diferencialni_pocet_dvou_promennych", "title": "Diferenciální počet funkce dvou proměnných", "items": [] },
+    { "slug": "obycejne_diferencialni_rovnice", "title": "Obyčejné diferenciální rovnice", "items": [] }
+  ]
+}
