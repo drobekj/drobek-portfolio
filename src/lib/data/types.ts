@@ -5,10 +5,10 @@ export type MaterialItem = {
   id: string;
   title: string;
   pdfPath: string; // např. "/pdfs/ss/rovnice_a_nerovnice/linearni.pdf"
-  tags?: string[];
   type?: MaterialType;
-  year?: number;
-  level?: Level;
+  year?: number | null;
+  level?: Level | null;
+  tags?: string[];
 };
 
 export type Topic = {
