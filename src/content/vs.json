@@ -1,9 +1,397 @@
 {
   "topics": [
     {
-      "slug": "diferencialni_pocet",
-      "title": "Diferenciální počet",
-      "items": []
+      "slug": "analyticka_geometrie",
+      "title": "Analytická geometrie",
+      "items": [
+        {
+          "id": "vs_analyticka_geometrie_1",
+          "title": "Polohove Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/analyticka_geometrie/polohove_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_analyticka_geometrie_2",
+          "title": "Polohove Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/analyticka_geometrie/polohove_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_analyticka_geometrie_3",
+          "title": "Primkarovina Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/analyticka_geometrie/primkarovina_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_analyticka_geometrie_4",
+          "title": "Primkarovina Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/analyticka_geometrie/primkarovina_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_analyticka_geometrie_5",
+          "title": "Referat Ag Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/analyticka_geometrie/referat_ag_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_analyticka_geometrie_6",
+          "title": "Referat Ag Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/analyticka_geometrie/referat_ag_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "slug": "diferencialni_pocet_i",
+      "title": "Diferencialni Pocet I",
+      "items": [
+        {
+          "id": "vs_diferencialni_pocet_i_1",
+          "title": "Derivace Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/derivace_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_2",
+          "title": "Derivace Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/derivace_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_3",
+          "title": "Extremalni Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/extremalni_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_4",
+          "title": "Extremalni Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/extremalni_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_5",
+          "title": "Funkce Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/funkce_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_6",
+          "title": "Funkce Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/funkce_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_7",
+          "title": "Limita Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/limita_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_8",
+          "title": "Limita Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/limita_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_9",
+          "title": "Referat Dp1 Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/referat_dp1_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_10",
+          "title": "Referat Dp1 Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/referat_dp1_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_11",
+          "title": "Spojitost Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/spojitost_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_12",
+          "title": "Spojitost Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/spojitost_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_13",
+          "title": "Uvod Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/uvod_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_14",
+          "title": "Uvod Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/uvod_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_15",
+          "title": "Vyuzitider Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/vyuzitider_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_i_16",
+          "title": "Vyuzitider Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_i/vyuzitider_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "slug": "diferencialni_pocet_ii",
+      "title": "Diferencialni Pocet Ii",
+      "items": [
+        {
+          "id": "vs_diferencialni_pocet_ii_1",
+          "title": "Referat Dp2 Pr Bm2 Hgf Klik",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_ii/referat_dp2_pr_bm2_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_diferencialni_pocet_ii_2",
+          "title": "Referat Dp2 Pr Bm2 Hgf",
+          "pdfPath": "/pdfs/vs/diferencialni_pocet_ii/referat_dp2_pr_bm2_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "slug": "integralni_pocet",
+      "title": "Integrální počet",
+      "items": [
+        {
+          "id": "vs_integralni_pocet_1",
+          "title": "Referat Ip1 Pr Bm2 Hgf Klik",
+          "pdfPath": "/pdfs/vs/integralni_pocet/referat_ip1_pr_bm2_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_integralni_pocet_2",
+          "title": "Referat Ip1 Pr Bm2 Hgf",
+          "pdfPath": "/pdfs/vs/integralni_pocet/referat_ip1_pr_bm2_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_integralni_pocet_3",
+          "title": "Uvod Pr Bm2 Hgf Klik",
+          "pdfPath": "/pdfs/vs/integralni_pocet/uvod_pr_bm2_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_integralni_pocet_4",
+          "title": "Uvod Pr Bm2 Hgf",
+          "pdfPath": "/pdfs/vs/integralni_pocet/uvod_pr_bm2_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "slug": "linearni_algebra",
+      "title": "Lineární algebra",
+      "items": [
+        {
+          "id": "vs_linearni_algebra_1",
+          "title": "Matice Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/linearni_algebra/matice_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_linearni_algebra_2",
+          "title": "Matice Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/linearni_algebra/matice_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_linearni_algebra_3",
+          "title": "Referat La Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/linearni_algebra/referat_la_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_linearni_algebra_4",
+          "title": "Referat La Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/linearni_algebra/referat_la_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_linearni_algebra_5",
+          "title": "Soustavy Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/linearni_algebra/soustavy_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_linearni_algebra_6",
+          "title": "Soustavy Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/linearni_algebra/soustavy_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_linearni_algebra_7",
+          "title": "Vektory Pr Bm1 Hgf Klik",
+          "pdfPath": "/pdfs/vs/linearni_algebra/vektory_pr_bm1_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_linearni_algebra_8",
+          "title": "Vektory Pr Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/linearni_algebra/vektory_pr_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "slug": "obycejne_diferencialni_rovnice",
+      "title": "Obyčejné diferenciální rovnice",
+      "items": [
+        {
+          "id": "vs_obycejne_diferencialni_rovnice_1",
+          "title": "Referat Odr Pr Bm2 Hgf Klik",
+          "pdfPath": "/pdfs/vs/obycejne_diferencialni_rovnice/referat_odr_pr_bm2_hgf_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "vs_obycejne_diferencialni_rovnice_2",
+          "title": "Referat Odr Pr Bm2 Hgf",
+          "pdfPath": "/pdfs/vs/obycejne_diferencialni_rovnice/referat_odr_pr_bm2_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "slug": "zaklady_matematiky",
+      "title": "Zaklady Matematiky",
+      "items": [
+        {
+          "id": "vs_zaklady_matematiky_1",
+          "title": "Zaklady Cv Bm1 Hgf",
+          "pdfPath": "/pdfs/vs/zaklady_matematiky/zaklady_cv_bm1_hgf.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     }
   ]
 }

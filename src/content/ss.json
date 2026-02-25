@@ -3,17 +3,326 @@
     {
       "slug": "analyticka_geometrie",
       "title": "Analytická geometrie",
-      "items": []
+      "items": [
+        {
+          "id": "ss_analyticka_geometrie_1",
+          "title": "M3 Analgeom Elipsa Goa Klik",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_elipsa_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_2",
+          "title": "M3 Analgeom Elipsa Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_elipsa_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_3",
+          "title": "M3 Analgeom Elipsa Priklady Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_elipsa_priklady_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_4",
+          "title": "M3 Analgeom Hyperbola Priklady Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_hyperbola_priklady_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_5",
+          "title": "M3 Analgeom Kruznice Goa Klik",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_kruznice_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_6",
+          "title": "M3 Analgeom Kruznice Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_kruznice_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_7",
+          "title": "M3 Analgeom Kruznice Priklady Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_kruznice_priklady_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_8",
+          "title": "M3 Analgeom Kuzelosecky Goa Klik",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_kuzelosecky_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_9",
+          "title": "M3 Analgeom Kuzelosecky Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_kuzelosecky_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_10",
+          "title": "M3 Analgeom Metricke Goa Klik",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_metricke_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_11",
+          "title": "M3 Analgeom Metricke Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_metricke_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_12",
+          "title": "M3 Analgeom Parabola Goa Klik",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_parabola_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_13",
+          "title": "M3 Analgeom Parabola Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_parabola_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_14",
+          "title": "M3 Analgeom Parabola Priklady Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_parabola_priklady_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_15",
+          "title": "M3 Analgeom Primka Goa Klik",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_primka_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_16",
+          "title": "M3 Analgeom Primka Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_primka_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_17",
+          "title": "M3 Analgeom Rovina Goa Klik",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_rovina_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_18",
+          "title": "M3 Analgeom Rovina Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_rovina_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_19",
+          "title": "M3 Analgeom Vektory Goa Klik",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_vektory_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_analyticka_geometrie_20",
+          "title": "M3 Analgeom Vektory Goa",
+          "pdfPath": "/pdfs/ss/analyticka_geometrie/m3_analgeom_vektory_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "financni_matematika",
       "title": "Finanční matematika",
-      "items": []
+      "items": [
+        {
+          "id": "ss_financni_matematika_1",
+          "title": "M3 Financni Zakladni Goa Klik",
+          "pdfPath": "/pdfs/ss/financni_matematika/m3_financni_zakladni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_financni_matematika_2",
+          "title": "M3 Financni Zakladni Goa",
+          "pdfPath": "/pdfs/ss/financni_matematika/m3_financni_zakladni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "funkce",
       "title": "Funkce",
-      "items": []
+      "items": [
+        {
+          "id": "ss_funkce_1",
+          "title": "M2 Funkce Exponencialni Goa Klik",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_exponencialni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_2",
+          "title": "M2 Funkce Exponencialni Goa",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_exponencialni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_3",
+          "title": "M2 Funkce Goniometricke Goa Klik",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_goniometricke_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_4",
+          "title": "M2 Funkce Goniometricke Goa",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_goniometricke_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_5",
+          "title": "M2 Funkce Iracionalni Goa Klik",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_iracionalni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_6",
+          "title": "M2 Funkce Iracionalni Goa",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_iracionalni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_7",
+          "title": "M2 Funkce Kvadraticka Goa Klik",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_kvadraticka_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_8",
+          "title": "M2 Funkce Kvadraticka Goa",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_kvadraticka_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_9",
+          "title": "M2 Funkce Logaritmicke Goa Klik",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_logaritmicke_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_10",
+          "title": "M2 Funkce Logaritmicke Goa",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_logaritmicke_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_11",
+          "title": "M2 Funkce Zakladni Goa Klik",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_zakladni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_12",
+          "title": "M2 Funkce Zakladni Goa",
+          "pdfPath": "/pdfs/ss/funkce/m2_funkce_zakladni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "kombinatorika",
@@ -114,22 +423,259 @@
     {
       "slug": "mnoziny",
       "title": "Množiny",
-      "items": []
+      "items": [
+        {
+          "id": "ss_mnoziny_1",
+          "title": "M1 Mnoziny Zakladni Goa Klik",
+          "pdfPath": "/pdfs/ss/mnoziny/m1_mnoziny_zakladni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_mnoziny_2",
+          "title": "M1 Mnoziny Zakladni Goa",
+          "pdfPath": "/pdfs/ss/mnoziny/m1_mnoziny_zakladni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "planimetrie",
       "title": "Planimetrie",
-      "items": []
+      "items": [
+        {
+          "id": "ss_planimetrie_1",
+          "title": "M2 Planimetrie Podobnost Goa Klik",
+          "pdfPath": "/pdfs/ss/planimetrie/m2_planimetrie_podobnost_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_planimetrie_2",
+          "title": "M2 Planimetrie Podobnost Goa",
+          "pdfPath": "/pdfs/ss/planimetrie/m2_planimetrie_podobnost_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_planimetrie_3",
+          "title": "M2 Planimetrie Shodna Goa Klik",
+          "pdfPath": "/pdfs/ss/planimetrie/m2_planimetrie_shodna_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_planimetrie_4",
+          "title": "M2 Planimetrie Shodna Goa",
+          "pdfPath": "/pdfs/ss/planimetrie/m2_planimetrie_shodna_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_planimetrie_5",
+          "title": "M2 Planimetrie Vety Goa Klik",
+          "pdfPath": "/pdfs/ss/planimetrie/m2_planimetrie_vety_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_planimetrie_6",
+          "title": "M2 Planimetrie Vety Goa",
+          "pdfPath": "/pdfs/ss/planimetrie/m2_planimetrie_vety_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_planimetrie_7",
+          "title": "M2 Planimetrie Zakladni Goa Klik",
+          "pdfPath": "/pdfs/ss/planimetrie/m2_planimetrie_zakladni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_planimetrie_8",
+          "title": "M2 Planimetrie Zakladni Goa",
+          "pdfPath": "/pdfs/ss/planimetrie/m2_planimetrie_zakladni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "posloupnosti",
       "title": "Posloupnosti",
-      "items": []
+      "items": [
+        {
+          "id": "ss_posloupnosti_1",
+          "title": "M3 Posloupnosti Aritm Goa Klik",
+          "pdfPath": "/pdfs/ss/posloupnosti/m3_posloupnosti_aritm_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_posloupnosti_2",
+          "title": "M3 Posloupnosti Aritm Goa",
+          "pdfPath": "/pdfs/ss/posloupnosti/m3_posloupnosti_aritm_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_posloupnosti_3",
+          "title": "M3 Posloupnosti Geom Goa Klik",
+          "pdfPath": "/pdfs/ss/posloupnosti/m3_posloupnosti_geom_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_posloupnosti_4",
+          "title": "M3 Posloupnosti Geom Goa",
+          "pdfPath": "/pdfs/ss/posloupnosti/m3_posloupnosti_geom_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_posloupnosti_5",
+          "title": "M3 Posloupnosti Zakladni Goa Klik",
+          "pdfPath": "/pdfs/ss/posloupnosti/m3_posloupnosti_zakladni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_posloupnosti_6",
+          "title": "M3 Posloupnosti Zakladni Goa",
+          "pdfPath": "/pdfs/ss/posloupnosti/m3_posloupnosti_zakladni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "rovnice_a_nerovnice",
       "title": "Rovnice a nerovnice",
       "items": [
+        {
+          "id": "ss_rovnice_a_nerovnice_1",
+          "title": "M1 Rovnice Absolut Goa Klik",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_absolut_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_2",
+          "title": "M1 Rovnice Absolut Goa",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_absolut_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_3",
+          "title": "M1 Rovnice Kvadraticka Goa Klik",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_kvadraticka_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_4",
+          "title": "M1 Rovnice Kvadraticka Goa",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_kvadraticka_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_5",
+          "title": "M1 Rovnice Linearni Goa Klik",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_linearni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_6",
+          "title": "M1 Rovnice Linearni Goa",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_linearni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_7",
+          "title": "M1 Rovnice Nerovnice Goa Klik",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_nerovnice_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_8",
+          "title": "M1 Rovnice Nerovnice Goa",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_nerovnice_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_9",
+          "title": "M1 Rovnice Soustavy Goa Klik",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_soustavy_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_rovnice_a_nerovnice_10",
+          "title": "M1 Rovnice Soustavy Goa",
+          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/m1_rovnice_soustavy_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
         {
           "id": "ss_rovnice_a_nerovnice_1",
           "title": "Test PDF (ručně)",
@@ -144,12 +690,146 @@
     {
       "slug": "stereometrie",
       "title": "Stereometrie",
-      "items": []
+      "items": [
+        {
+          "id": "ss_stereometrie_1",
+          "title": "M3 Stereometrie Metricke Goa Klik",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_metricke_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_2",
+          "title": "M3 Stereometrie Metricke Goa",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_metricke_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_3",
+          "title": "M3 Stereometrie Polohove Goa Klik",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_polohove_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_4",
+          "title": "M3 Stereometrie Polohove Goa",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_polohove_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_5",
+          "title": "M3 Stereometrie Rezy Goa Klik",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_rezy_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_6",
+          "title": "M3 Stereometrie Rezy Goa",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_rezy_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_7",
+          "title": "M3 Stereometrie Volnerov Goa Klik",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_volnerov_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_8",
+          "title": "M3 Stereometrie Volnerov Goa",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_volnerov_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_9",
+          "title": "M3 Stereometrie Zakladni Goa Klik",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_zakladni_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_stereometrie_10",
+          "title": "M3 Stereometrie Zakladni Goa",
+          "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_zakladni_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "slug": "trigonometrie",
+      "title": "Trigonometrie",
+      "items": [
+        {
+          "id": "ss_trigonometrie_1",
+          "title": "M2 Trigonometrie Goa Klik",
+          "pdfPath": "/pdfs/ss/trigonometrie/m2_trigonometrie_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_trigonometrie_2",
+          "title": "M2 Trigonometrie Goa",
+          "pdfPath": "/pdfs/ss/trigonometrie/m2_trigonometrie_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "vyrazy",
       "title": "Výrazy",
-      "items": []
+      "items": [
+        {
+          "id": "ss_vyrazy_1",
+          "title": "M1 Vyrazy Lomene Goa Klik",
+          "pdfPath": "/pdfs/ss/vyrazy/m1_vyrazy_lomene_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_vyrazy_2",
+          "title": "M1 Vyrazy Lomene Goa",
+          "pdfPath": "/pdfs/ss/vyrazy/m1_vyrazy_lomene_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        }
+      ]
     }
   ]
 }
