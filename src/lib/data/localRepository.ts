@@ -106,10 +106,20 @@ async getCatalog(section: SectionKey): Promise<Catalog> {
   };
 }
 
-  async getTopic(section: SectionKey, slug: string): Promise<Topic | null> {
-    const cat = catalogs[section];
-    return cat.topics.find((t) => t.slug === slug) ?? null;
-  }
+async getTopic(section: SectionKey, slug: string): Promise<Topic | null> {
+  const catalog = catalogs[section];
+  const topic = catalog.topics.find((t) => t.slug === slug);
+  if (!topic) return null;
+
+  const titleOverride =
+    section === "ss"
+      ? SS_TOPIC_TITLES[topic.slug]
+      : section === "vs"
+        ? VS_TOPIC_TITLES[topic.slug]
+        : undefined;
+
+  return titleOverride ? { ...topic, title: titleOverride } : topic;
+}
 }
 
 export const repo = new LocalRepository();
