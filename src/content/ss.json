@@ -321,6 +321,24 @@
           "year": null,
           "level": null,
           "tags": []
+        },
+        {
+          "id": "ss_funkce_13",
+          "title": "M2 Trigonometrie Goa Klik",
+          "pdfPath": "/pdfs/ss/funkce/m2_trigonometrie_goa_klik.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
+        },
+        {
+          "id": "ss_funkce_14",
+          "title": "M2 Trigonometrie Goa",
+          "pdfPath": "/pdfs/ss/funkce/m2_trigonometrie_goa.pdf",
+          "type": "slides",
+          "year": null,
+          "level": null,
+          "tags": []
         }
       ]
     },
@@ -675,15 +693,6 @@
           "year": null,
           "level": null,
           "tags": []
-        },
-        {
-          "id": "ss_rovnice_a_nerovnice_1",
-          "title": "Test PDF (ručně)",
-          "pdfPath": "/pdfs/ss/rovnice_a_nerovnice/test.pdf",
-          "type": "slides",
-          "year": null,
-          "level": null,
-          "tags": []
         }
       ]
     },
@@ -776,30 +785,6 @@
           "id": "ss_stereometrie_10",
           "title": "M3 Stereometrie Zakladni Goa",
           "pdfPath": "/pdfs/ss/stereometrie/m3_stereometrie_zakladni_goa.pdf",
-          "type": "slides",
-          "year": null,
-          "level": null,
-          "tags": []
-        }
-      ]
-    },
-    {
-      "slug": "trigonometrie",
-      "title": "Trigonometrie",
-      "items": [
-        {
-          "id": "ss_trigonometrie_1",
-          "title": "M2 Trigonometrie Goa Klik",
-          "pdfPath": "/pdfs/ss/trigonometrie/m2_trigonometrie_goa_klik.pdf",
-          "type": "slides",
-          "year": null,
-          "level": null,
-          "tags": []
-        },
-        {
-          "id": "ss_trigonometrie_2",
-          "title": "M2 Trigonometrie Goa",
-          "pdfPath": "/pdfs/ss/trigonometrie/m2_trigonometrie_goa.pdf",
           "type": "slides",
           "year": null,
           "level": null,

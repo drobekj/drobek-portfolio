@@ -24,13 +24,12 @@ export default async function VSTopicPage({
   const topic = await repo.getTopic("vs", topicSlug);
   if (!topic) return notFound();
 
-  const { overview, groups } = groupTopicPdfs(topic.items);
+  const { overview, groups } = groupTopicPdfs(topic.items, topic.slug);
 
   return (
     <div>
       <Breadcrumbs
         items={[
-          { href: "/", label: "Home" },
           { href: "/vs", label: "VŠ learning" },
           { href: `/vs/${topic.slug}`, label: topic.title },
         ]}
@@ -76,15 +75,11 @@ export default async function VSTopicPage({
         {overview ? (
           <div className="rounded-2xl border-2 border-gray-300 bg-gray-50 p-6 shadow-sm transition hover:shadow-md">
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="min-w-0">
-                <div className="text-lg font-semibold">
-                  {overview.base.title}
-                </div>
-                <div className="mt-2 pl-2.5 text-sm font-medium text-gray-500">
-                  Přehled okruhu
-                </div>
-              </div>
-
+<div className="min-w-0">
+  <div className="text-xl font-semibold tracking-tight">
+    {overview.base.title}
+  </div>
+</div>
               {/* Pravý panel: [Krokově] [Otevřít] */}
               <div className="inline-grid grid-cols-2 items-center justify-items-end gap-2">
                 {overview.step ? (
