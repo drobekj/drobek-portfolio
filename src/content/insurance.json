@@ -1,1 +1,38 @@
-{ "topics": [] }
+{
+  "topics": [
+    {
+      "slug": "insurance_frequency_modeling",
+      "title": "Insurance Frequency Modeling",
+      "description": "End-to-end machine learning case study focused on insurance claim frequency modeling, validation, calibration, and interpretability.",
+      "items": [
+        {
+          "id": "insurance_frequency_modeling_pdf_cz",
+          "title": "Case Study PDF",
+          "pdfPath": "/pdfs/insurance/insurance_frequency_modeling_case_study.pdf",
+          "type": "pdf",
+          "year": 2026,
+          "level": "Portfolio case study",
+          "tags": ["PDF", "CZ", "Insurance"]
+        },
+        {
+          "id": "insurance_frequency_modeling_pdf_en",
+          "title": "Case Study PDF (EN)",
+          "pdfPath": "/pdfs/insurance/insurance_frequency_modeling_case_study_en.pdf",
+          "type": "pdf",
+          "year": 2026,
+          "level": "Portfolio case study",
+          "tags": ["PDF", "EN", "Insurance"]
+        },
+        {
+          "id": "insurance_frequency_modeling_github",
+          "title": "GitHub Repository",
+          "pdfPath": "https://github.com/drobekj/insurance-frequency-modeling",
+          "type": "external",
+          "year": 2026,
+          "level": "Repository",
+          "tags": ["GitHub", "XGBoost", "GLM", "SHAP"]
+        }
+      ]
+    }
+  ]
+}
