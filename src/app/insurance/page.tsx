@@ -24,7 +24,13 @@ export default async function InsurancePage() {
               {t.title}
             </div>
             <div className="mt-3 text-sm text-gray-500">
-              {t.items.length} položka
+              {t.items.length}{" "}
+{t.items.length === 1
+? "položka"
+: t.items.length >= 2 && t.items.length <= 4
+? "položky"
+: "položek"}
+
             </div>
           </Link>
         ))}

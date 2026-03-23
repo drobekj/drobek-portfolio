@@ -54,7 +54,12 @@ export default async function InsuranceTopicPage({
         </div>
 
         <div className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-          {topic.items.length} položka{topic.items.length === 1 ? "" : "y"}
+{topic.items.length}{" "}
+{topic.items.length === 1
+? "položka"
+: topic.items.length >= 2 && topic.items.length <= 4
+? "položky"
+: "položek"}
         </div>
       </div>
 
