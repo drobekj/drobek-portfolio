@@ -7,6 +7,7 @@ const items = [
   { href: "/", label: "Home" },
   { href: "/search", label: "Search" },
   { href: "/insurance", label: "Insurance" },
+  { href: "/ml-ds", label: "ML/DS" },
   { href: "/research", label: "Research" },
   { href: "/vs", label: "VŠ learning" },
   { href: "/ss", label: "SŠ learning" },

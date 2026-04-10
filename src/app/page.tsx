@@ -7,6 +7,11 @@ const sections = [
     desc: "Praktické ukázky práce s daty, modely a reporty.",
   },
   {
+    href: "/ml-ds",
+    title: "ML/DS projekty",
+    desc: "Machine Learning, Data Science a kvantitativní analýza.",
+  },
+  {
     href: "/research",
     title: "Research",
     desc: "Dizertace, publikace, odborné výstupy.",

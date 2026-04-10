@@ -9,6 +9,7 @@ export default async function sitemap() {
     "/vs",
     "/research",
     "/insurance",
+    "/ml-ds",
     "/search",
   ];
 

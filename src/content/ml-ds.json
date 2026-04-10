@@ -1,0 +1,38 @@
+{
+  "topics": [
+    {
+      "slug": "investment_portfolio_analysis",
+      "title": "Investment Portfolio Analysis",
+      "description": "Rigorous portfolio performance analysis pipeline including TWR, IRR, and valuation logic aligned with industry standards.",
+      "items": [
+        {
+          "id": "investment_portfolio_analysis_pdf_cz",
+          "title": "Case Study PDF",
+          "pdfPath": "/pdfs/ml-ds/investment_portfolio_analysis_case_study.pdf",
+          "type": "pdf",
+          "year": 2026,
+          "level": "Portfolio case study",
+          "tags": ["PDF", "CZ", "ML/DS"]
+        },
+        {
+          "id": "investment_portfolio_analysis_pdf_en",
+          "title": "Case Study PDF (EN)",
+          "pdfPath": "/pdfs/ml-ds/investment_portfolio_analysis_case_study_en.pdf",
+          "type": "pdf",
+          "year": 2026,
+          "level": "Portfolio case study",
+          "tags": ["PDF", "EN", "ML/DS"]
+        },
+        {
+          "id": "investment_portfolio_analysis_github",
+          "title": "GitHub Repository",
+          "pdfPath": "https://github.com/drobekj/investment-portfolio-analysis",
+          "type": "external",
+          "year": 2026,
+          "level": "Repository",
+          "tags": ["GitHub", "Python", "Quant Finance", "TWR", "IRR"]
+        }
+      ]
+    }
+  ]
+}
