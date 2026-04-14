@@ -17,6 +17,15 @@ export type Topic = {
   description?: string;
   tags?: string[];
   items: MaterialItem[];
+  authors?: string;
+  journal?: string;
+  year?: string;
+  summary?: string;
+  keyContribution?: string;
+  keywords?: string[];
+  doiUrl?: string;
+  linkLabel?: string;
+  pdfPath?: string;
 };
 
 export type Catalog = {
