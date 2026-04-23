@@ -11,30 +11,33 @@ export default async function MlDsPage() {
   return (
     <div>
       <h1 className="text-3xl font-semibold tracking-tight">ML/DS</h1>
+
       <p className="mt-2 text-sm text-gray-500">
-        Machine Learning a Data Science projekty.
+        Machine learning and data science projects.
       </p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {cat.topics.map((t) => (
-          <Link
-            key={t.slug}
-            href={`/ml-ds/${t.slug}`}
-            className="group rounded-2xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-          >
-            <div className="text-lg font-semibold tracking-tight">
-              {t.title}
-            </div>
-            <div className="mt-3 text-sm text-gray-500">
-              {t.items.length}{" "}
-              {t.items.length === 1
-                ? "položka"
-                : t.items.length >= 2 && t.items.length <= 4
-                ? "položky"
-                : "položek"}
-            </div>
-          </Link>
-        ))}
+      <div className="mt-8 grid gap-5">
+        {cat.topics.map((t) => {
+          const text = t.summary ?? t.description;
+
+          return (
+            <Link
+              key={t.slug}
+              href={`/ml-ds/${t.slug}`}
+              className="group rounded-2xl border bg-white p-6 transition hover:-translate-y-1 hover:shadow-md"
+            >
+              <div className="text-lg font-semibold leading-snug">
+                {t.title}
+              </div>
+
+              {text && (
+                <div className="mt-3 text-sm text-gray-500 leading-relaxed">
+                  {text}
+                </div>
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

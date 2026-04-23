@@ -68,12 +68,12 @@ export default async function ResearchTopicPage({
         {topic.keywords && topic.keywords.length > 0 && (
           <div className="mt-6">
             <h2 className="text-sm font-semibold">Keywords</h2>
+
             <div className="mt-3 flex flex-wrap gap-2">
               {topic.keywords.map((keyword) => (
                 <span
                   key={keyword}
-                  className="rounded-full border px-3 py-1 text-xs opacity-80"
-                >
+className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700"                >
                   {keyword}
                 </span>
               ))}
@@ -85,7 +85,7 @@ export default async function ResearchTopicPage({
             href={topic.doiUrl ?? topic.pdfPath ?? "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex rounded-xl border px-4 py-2 text-sm font-medium transition hover:bg-black/5"
+            className="inline-flex rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:opacity-90"
           >
             {topic.slug === "dissertation-cvbem"
               ? "View dissertation (PDF)"

@@ -10,8 +10,8 @@ export async function generateMetadata({
 }) {
   const { topicSlug } = await params;
   const topic = await repo.getTopic("ss", topicSlug);
-  if (!topic) return { title: "SŠ learning" };
-  return { title: `${topic.title} (SŠ)` };
+  if (!topic) return { title: "High School" };
+  return { title: `${topic.title} (High School)` };
 }
 
 export default async function SSTopicPage({
@@ -30,7 +30,7 @@ export default async function SSTopicPage({
     <div>
       <Breadcrumbs
         items={[
-          { href: "/ss", label: "SŠ learning" },
+          { href: "/ss", label: "High School" },
           { href: `/ss/${topic.slug}`, label: topic.title },
         ]}
       />

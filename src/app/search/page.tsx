@@ -3,12 +3,13 @@ import { SearchClient } from "./searchClient";
 export default function SearchPage() {
   return (
     <div>
-      <h1 className="text-2xl font-semibold tracking-tight">Vyhledávání</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Search</h1>
+
       <p className="mt-2 text-sm text-gray-500">
-        Hledej podle názvu, tagů, roku nebo typu (SŠ i VŠ).
+        Search by title, tags, year, or type across all sections.
       </p>
 
-      <div className="mt-6">
+      <div className="mt-8">
         <SearchClient />
       </div>
     </div>

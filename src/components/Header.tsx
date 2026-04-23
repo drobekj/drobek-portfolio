@@ -9,19 +9,14 @@ const items = [
   { href: "/ml-ds", label: "ML/DS" },
   { href: "/insurance", label: "Insurance" },
   { href: "/research", label: "Research" },
-  { href: "/vs", label: "VŠ learning" },
-  { href: "/ss", label: "SŠ learning" },
+  { href: "/vs", label: "University" },
+  { href: "/ss", label: "High School" },
 ];
 
 function isActive(pathname: string, href: string) {
-  if (href === "/") {
-    return pathname === "/";
-  }
-
+  if (href === "/") return pathname === "/";
   if (pathname === href) return true;
-
   if (pathname.startsWith(href + "/")) return true;
-
   return false;
 }
 
@@ -29,25 +24,31 @@ export function Header() {
   const pathname = usePathname() || "/";
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur dark:bg-black/60">
-      <nav className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-4">
-        <Link href="/" className="font-semibold tracking-tight hover:opacity-80">
-          Drobek
+    <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
+      <nav className="mx-auto flex max-w-6xl items-center px-8 py-4">
+        
+        {/* LEFT */}
+        <Link
+          href="/"
+          className="text-sm font-semibold tracking-tight hover:opacity-80"
+        >
+          Jaroslav Drobek
         </Link>
 
-        <div className="ml-auto flex items-center gap-2 text-sm">
+        {/* RIGHT */}
+        <div className="ml-auto flex items-center gap-3 text-sm">
           {items.map((it) => {
             const active = isActive(pathname, it.href);
+
             return (
               <Link
                 key={it.href}
                 href={it.href}
-                className={[
-                  "rounded-full px-3 py-1.5 transition hover:opacity-80",
+                className={
                   active
-                    ? "border bg-black text-white dark:bg-white dark:text-black"
-                    : "border-transparent",
-                ].join(" ")}
+                    ? "rounded-full bg-black px-3 py-1.5 text-white"
+                    : "rounded-full px-3 py-1.5 text-gray-600 hover:text-black"
+                }
               >
                 {it.label}
               </Link>

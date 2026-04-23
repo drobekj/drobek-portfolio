@@ -58,10 +58,10 @@ export default async function MlDsTopicPage({
         <div className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
           {topic.items.length}{" "}
           {topic.items.length === 1
-            ? "položka"
+            ? "item"
             : topic.items.length >= 2 && topic.items.length <= 4
-            ? "položky"
-            : "položek"}
+            ? "items"
+            : "items"}
         </div>
       </div>
 
@@ -134,7 +134,7 @@ export default async function MlDsTopicPage({
               rel="noopener noreferrer"
               className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:opacity-90"
             >
-              Otevřít
+              Open
             </a>
           </div>
         ))}

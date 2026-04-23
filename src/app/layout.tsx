@@ -13,30 +13,35 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL("https://drobek-portfolio.vercel.app"),
   title: {
     default: "Jaroslav Drobek – Portfolio",
     template: "%s | Jaroslav Drobek",
   },
   description:
-    "Portfolio: matematické materiály (SŠ, VŠ), research a odborné projekty.",
+    "Portfolio: mathematical materials, research, and technical projects.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
       >
-	<Header />
-        <main className="mx-auto max-w-5xl px-6 py-6">{children}</main>
-	<footer className="mt-16 border-t py-8 text-center text-xs text-gray-500">
-  	  © {new Date().getFullYear()} DrSoft
-	</footer>
+        <Header />
+
+        <main className="mx-auto max-w-6xl px-8 py-8">
+          {children}
+        </main>
+
+        <footer className="mt-16 border-t py-8 text-center text-xs text-gray-500">
+          © {new Date().getFullYear()} DrSoft
+        </footer>
       </body>
     </html>
   );

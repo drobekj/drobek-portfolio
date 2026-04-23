@@ -1,77 +1,58 @@
 import Link from "next/link";
-
 import { repo } from "@/lib/data/localRepository";
+import { PrimaryTopicCard } from "@/components/PrimaryTopicCard";
+
+export const metadata = {
+  title: "Research",
+};
 
 export default async function ResearchPage() {
-  const catalog = await repo.getCatalog("research");
+  const cat = await repo.getCatalog("research");
 
-  const dissertation = catalog.topics.find(
+  const dissertation = cat.topics.find(
     (topic) => topic.slug === "dissertation-cvbem"
   );
 
-  const publications = catalog.topics.filter(
+  const publications = cat.topics.filter(
     (topic) => topic.slug !== "dissertation-cvbem"
   );
 
   return (
-    <main className="mx-auto max-w-5xl p-6">
-      <h1 className="text-2xl font-semibold">Research</h1>
-      <p className="mt-2 text-sm opacity-80">
-        Dissertation, publications, and research outputs.
+    <div>
+      <h1 className="text-3xl font-semibold tracking-tight">Research</h1>
+
+      <p className="mt-2 text-sm text-gray-500">
+        Publications and academic work.
       </p>
 
-      <div className="mt-6 space-y-4">
-        {dissertation && (
-          <Link
+      {dissertation ? (
+        <div className="mt-8">
+          <PrimaryTopicCard
             href={`/research/${dissertation.slug}`}
-            className="block rounded-2xl border-2 border-gray-300 bg-gray-50 p-6 shadow-sm transition hover:shadow-md"
-          >
-            <div className="flex flex-col justify-between h-full">
-              <div>
-                <div className="mb-1 text-sm font-medium text-gray-600">
-                  Dissertation
-                </div>
+            title={dissertation.title}
+            description={dissertation.summary}
+            label={undefined}
+          />
+        </div>
+      ) : null}
 
-                <h2 className="text-lg font-semibold leading-snug">
-                  {dissertation.title}
-                </h2>
-
-                {(dissertation.journal || dissertation.year) && (
-                  <p className="mt-2 text-sm opacity-70">
-                    {dissertation.journal}
-                    {dissertation.journal && dissertation.year ? " · " : ""}
-                    {dissertation.year}
-                  </p>
-                )}
-              </div>
-            </div>
-          </Link>
-        )}
-
-        {publications.map((topic) => (
+      <div className={dissertation ? "mt-6 grid gap-5" : "mt-8 grid gap-5"}>
+        {publications.map((t) => (
           <Link
-            key={topic.slug}
-            href={`/research/${topic.slug}`}
-            className="block rounded-2xl border p-6 transition hover:bg-black/5"
+            key={t.slug}
+            href={`/research/${t.slug}`}
+            className="group rounded-2xl border bg-white p-6 transition hover:-translate-y-1 hover:shadow-md"
           >
-            <div className="flex h-full flex-col justify-between">
-              <div>
-                <h2 className="text-lg font-semibold leading-snug">
-                  {topic.title}
-                </h2>
+            <div className="text-lg font-semibold leading-snug">{t.title}</div>
 
-                {(topic.journal || topic.year) && (
-                  <p className="mt-2 text-sm opacity-70">
-                    {topic.journal}
-                    {topic.journal && topic.year ? " · " : ""}
-                    {topic.year}
-                  </p>
-                )}
+            {t.summary && (
+              <div className="mt-3 text-sm text-gray-500 leading-relaxed">
+                {t.summary}
               </div>
-            </div>
+            )}
           </Link>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

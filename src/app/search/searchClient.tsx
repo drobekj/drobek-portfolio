@@ -5,41 +5,125 @@ import Link from "next/link";
 
 import ss from "@/content/ss.json";
 import vs from "@/content/vs.json";
+import insurance from "@/content/insurance.json";
+import research from "@/content/research.json";
+import mlDs from "@/content/ml-ds.json";
 
-type SectionKey = "ss" | "vs";
+type SectionKey = "ss" | "vs" | "insurance" | "research" | "ml-ds";
 
 type SearchResult = {
   id: string;
   title: string;
-  pdfPath: string;
+  href: string;
   tags?: string[];
   type?: string;
   year?: number;
   level?: string;
-
+  summary?: string;
+  topicTitle?: string;
   section: SectionKey;
-  topicSlug: string;
-  topicTitle: string;
+  sectionLabel: string;
 };
+
+function getSectionLabel(section: SectionKey) {
+  switch (section) {
+    case "ss":
+      return "High School";
+    case "vs":
+      return "University";
+    case "insurance":
+      return "Insurance";
+    case "research":
+      return "Research";
+    case "ml-ds":
+      return "ML/DS";
+  }
+}
+
+function uniqueStrings(values: string[] | undefined) {
+  return [...new Set((values ?? []).filter(Boolean))];
+}
 
 function buildIndex(): SearchResult[] {
   const out: SearchResult[] = [];
 
-  const add = (section: SectionKey, catalog: any) => {
+  const addStudyCatalog = (section: "ss" | "vs", catalog: any) => {
     for (const topic of catalog.topics ?? []) {
       for (const item of topic.items ?? []) {
         out.push({
-          ...item,
-          section,
-          topicSlug: topic.slug,
+          id: item.id,
+          title: item.title,
+          href: `/${section}/${topic.slug}`,
+          tags: uniqueStrings(item.tags),
+          type: item.type,
+          year: item.year,
+          level: item.level,
+          summary: topic.description ?? topic.summary,
           topicTitle: topic.title,
+          section,
+          sectionLabel: getSectionLabel(section),
         });
       }
     }
   };
 
-  add("ss", ss as any);
-  add("vs", vs as any);
+  const addInsuranceCatalog = (catalog: any) => {
+    for (const topic of catalog.topics ?? []) {
+      out.push({
+        id: topic.slug,
+        title: topic.title,
+        href: `/insurance/${topic.slug}`,
+        tags: uniqueStrings([...(topic.keywords ?? []), ...(topic.tools ?? [])]),
+        summary: topic.summary ?? topic.keyContribution,
+        topicTitle: topic.title,
+        section: "insurance",
+        sectionLabel: getSectionLabel("insurance"),
+      });
+    }
+  };
+
+  const addResearchCatalog = (catalog: any) => {
+    for (const topic of catalog.topics ?? []) {
+      out.push({
+        id: topic.slug,
+        title: topic.title,
+        href: `/research/${topic.slug}`,
+        tags: uniqueStrings(topic.keywords),
+        type: topic.journal,
+        year: topic.year,
+        level: topic.authors,
+        summary: topic.summary ?? topic.keyContribution,
+        topicTitle: topic.title,
+        section: "research",
+        sectionLabel: getSectionLabel("research"),
+      });
+    }
+  };
+
+  const addMlDsCatalog = (catalog: any) => {
+    for (const topic of catalog.topics ?? []) {
+      const itemTags = (topic.items ?? []).flatMap((item: any) => item.tags ?? []);
+      const itemTitles = (topic.items ?? []).map((item: any) => item.title).join(" ");
+
+      out.push({
+        id: topic.slug,
+        title: topic.title,
+        href: `/ml-ds/${topic.slug}`,
+        tags: uniqueStrings(itemTags),
+        summary: topic.description ?? topic.summary,
+        level: itemTitles,
+        topicTitle: topic.title,
+        section: "ml-ds",
+        sectionLabel: getSectionLabel("ml-ds"),
+      });
+    }
+  };
+
+  addStudyCatalog("ss", ss as any);
+  addStudyCatalog("vs", vs as any);
+  addInsuranceCatalog(insurance as any);
+  addResearchCatalog(research as any);
+  addMlDsCatalog(mlDs as any);
 
   return out;
 }
@@ -57,14 +141,18 @@ export function SearchClient() {
       .filter((r) => {
         const hay = [
           r.title,
+          r.section,
+          r.sectionLabel,
+          r.topicTitle ?? "",
+          r.summary ?? "",
           (r.tags ?? []).join(" "),
           r.type ?? "",
           r.year?.toString() ?? "",
           r.level ?? "",
-          r.topicTitle,
         ]
           .join(" ")
           .toLowerCase();
+
         return hay.includes(nq);
       })
       .slice(0, 50);
@@ -75,49 +163,53 @@ export function SearchClient() {
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Hledat… (např. rovnice, maturita, 2026)"
+        placeholder="Search... (e.g. insurance, dissertation, equations, xgboost)"
         className="w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none focus:ring"
       />
 
       {!q.trim() ? (
-        <div className="text-sm text-gray-500">Začni psát dotaz.</div>
+        <div className="text-sm text-gray-500">Start typing to search.</div>
       ) : results.length ? (
         <div className="space-y-3">
           {results.map((r) => (
             <div
-              key={`${r.section}-${r.topicSlug}-${r.id}`}
+              key={`${r.section}-${r.id}`}
               className="flex items-center justify-between gap-4 rounded-2xl border bg-white p-5 shadow-sm"
             >
               <div className="min-w-0">
                 <div className="truncate font-semibold">{r.title}</div>
+
                 <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500">
-                  <Link
-                    href={`/${r.section}/${r.topicSlug}`}
-                    className="hover:underline"
-                  >
-                    {r.section.toUpperCase()}: {r.topicTitle}
+                  <Link href={r.href} className="hover:underline">
+                    {r.sectionLabel}
+                    {r.topicTitle && r.topicTitle !== r.title ? `: ${r.topicTitle}` : ""}
                   </Link>
+
                   {r.year ? <span>{r.year}</span> : null}
                   {r.type ? <span>{r.type}</span> : null}
-                  {(r.tags ?? []).map((t) => (
-                    <span key={t}>#{t}</span>
+                  {(r.tags ?? []).slice(0, 6).map((t, i) => (
+                    <span key={`${r.id}-${t}-${i}`}>#{t}</span>
                   ))}
                 </div>
+
+                {r.summary ? (
+                  <div className="mt-2 line-clamp-2 text-sm text-gray-500">
+                    {r.summary}
+                  </div>
+                ) : null}
               </div>
 
-              <a
-                href={r.pdfPath}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 rounded-xl border bg-black px-3 py-2 text-sm font-medium text-white transition hover:bg-gray-800"
+              <Link
+                href={r.href}
+                className="shrink-0 rounded-xl bg-gray-900 px-3 py-2 text-sm font-medium text-white transition hover:opacity-90"
               >
-                PDF
-              </a>
+                Open
+              </Link>
             </div>
           ))}
         </div>
       ) : (
-        <div className="text-sm text-gray-500">Nic nenalezeno.</div>
+        <div className="text-sm text-gray-500">No results found.</div>
       )}
     </div>
   );

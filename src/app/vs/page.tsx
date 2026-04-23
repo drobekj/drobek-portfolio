@@ -2,7 +2,7 @@ import Link from "next/link";
 import { repo } from "@/lib/data/localRepository";
 
 export const metadata = {
-  title: "VŠ learning",
+  title: "University",
 };
 
 export default async function VSPage() {
@@ -10,8 +10,8 @@ export default async function VSPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold">VŠ learning</h1>
-      <p className="mt-2 text-sm opacity-80">Okruhy univerzitní matematiky.</p>
+      <h1 className="text-3xl font-semibold tracking-tight">University</h1>
+      <p className="mt-2 text-sm opacity-80">University-level mathematical materials and exercises.</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cat.topics.map((t) => (

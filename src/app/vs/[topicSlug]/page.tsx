@@ -10,8 +10,8 @@ export async function generateMetadata({
 }) {
   const { topicSlug } = await params;
   const topic = await repo.getTopic("vs", topicSlug);
-  if (!topic) return { title: "VŠ learning" };
-  return { title: `${topic.title} (VŠ)` };
+  if (!topic) return { title: "University" };
+  return { title: `${topic.title} (University)` };
 }
 
 export default async function VSTopicPage({
@@ -30,7 +30,7 @@ export default async function VSTopicPage({
     <div>
       <Breadcrumbs
         items={[
-          { href: "/vs", label: "VŠ learning" },
+          { href: "/vs", label: "University" },
           { href: `/vs/${topic.slug}`, label: topic.title },
         ]}
       />
