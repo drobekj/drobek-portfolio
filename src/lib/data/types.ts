@@ -14,18 +14,27 @@ export type MaterialItem = {
 export type Topic = {
   slug: string; // používáme _ místo -
   title: string;
+
+  // původní/common
   description?: string;
   tags?: string[];
   items: MaterialItem[];
+
+  // research
   authors?: string;
   journal?: string;
   year?: string;
   summary?: string;
   keyContribution?: string;
   keywords?: string[];
+
+  // links
   doiUrl?: string;
   linkLabel?: string;
   pdfPath?: string;
+
+  // insurance / ml-ds project metadata
+  tools?: string[];
 };
 
 export type Catalog = {
