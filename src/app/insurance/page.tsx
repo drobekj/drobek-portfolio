@@ -11,9 +11,9 @@ export default async function InsurancePage() {
   return (
     <div>
       <h1 className="text-3xl font-semibold tracking-tight">Insurance</h1>
-      <p className="mt-2 text-sm text-gray-500">Insurance projekty a ukázky.</p>
+      <p className="mt-2 text-sm text-gray-500">Insurance projects and actuarial modeling case studies.</p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid gap-4">
         {cat.topics.map((t) => (
           <Link
             key={t.slug}
@@ -23,15 +23,12 @@ export default async function InsurancePage() {
             <div className="text-lg font-semibold tracking-tight">
               {t.title}
             </div>
-            <div className="mt-3 text-sm text-gray-500">
-              {t.items.length}{" "}
-{t.items.length === 1
-? "položka"
-: t.items.length >= 2 && t.items.length <= 4
-? "položky"
-: "položek"}
 
-            </div>
+            {t.summary && (
+              <div className="mt-3 text-sm text-gray-500">
+                {t.summary}
+              </div>
+            )}
           </Link>
         ))}
       </div>

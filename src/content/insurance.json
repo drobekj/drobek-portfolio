@@ -1,38 +1,151 @@
 {
   "topics": [
     {
-      "slug": "insurance_frequency_modeling",
-      "title": "Insurance Frequency Modeling",
-      "description": "End-to-end machine learning case study focused on insurance claim frequency modeling, validation, calibration, and interpretability.",
-      "items": [
-        {
-          "id": "insurance_frequency_modeling_pdf_cz",
-          "title": "Case Study PDF",
-          "pdfPath": "/pdfs/insurance/insurance_frequency_modeling_case_study.pdf",
-          "type": "pdf",
-          "year": 2026,
-          "level": "Portfolio case study",
-          "tags": ["PDF", "CZ", "Insurance"]
-        },
-        {
-          "id": "insurance_frequency_modeling_pdf_en",
-          "title": "Case Study PDF (EN)",
-          "pdfPath": "/pdfs/insurance/insurance_frequency_modeling_case_study_en.pdf",
-          "type": "pdf",
-          "year": 2026,
-          "level": "Portfolio case study",
-          "tags": ["PDF", "EN", "Insurance"]
-        },
-        {
-          "id": "insurance_frequency_modeling_github",
-          "title": "GitHub Repository",
-          "pdfPath": "https://github.com/drobekj/insurance-frequency-modeling",
-          "type": "external",
-          "year": 2026,
-          "level": "Repository",
-          "tags": ["GitHub", "XGBoost", "GLM", "SHAP"]
-        }
-      ]
+      "slug": "actuarial_modeling_annuity",
+      "title": "Actuarial Modeling of Annuity-Based Life Insurance Products",
+      "summary": "Actuarial modeling and implementation of a life insurance product with annuity-based benefits, combining pricing, reserve calculations, and dynamic contract updates into a numerically consistent production model.",
+      "keyContribution": "Corrected inconsistent mortality-based pricing logic, stabilized inverse premium/benefit calculations, and designed a recalculation framework that kept pricing and reserve relationships consistent under mid-term contract changes.",
+      "keywords": [
+        "Actuarial modeling",
+        "Life insurance",
+        "Annuity benefits",
+        "Pricing logic",
+        "Reserve calculations",
+        "Mortality modeling",
+        "Inverse calculations",
+        "Numerical stability",
+        "Contract recalculation",
+        "Production implementation"
+      ],
+      "tools": [".NET", "Excel"],
+      "pdfPath": "/pdfs/insurance/insurance_actuarial_modeling_annuity.pdf",
+      "linkLabel": "Presentation"
+    },
+    {
+      "slug": "recursive_actuarial_functions_with_lapse",
+      "title": "Dynamic Actuarial Functions under Time-Dependent Policy Behavior",
+      "summary": "Actuarial reconstruction and implementation of a life insurance model with time-dependent policy behavior, where mortality selection, lapse assumptions, pricing, and reserve logic had to be combined into a recursive computational framework.",
+      "keyContribution": "Reformulated a spreadsheet-defined insurance model into reusable recursive actuarial functions, enabling consistent pricing and reserving under year-specific lapse behavior and later mid-term contract changes.",
+      "keywords": [
+        "Actuarial modeling",
+        "Life insurance",
+        "Recursive functions",
+        "Lapse modeling",
+        "Mortality selection",
+        "Pricing logic",
+        "Reserve calculations",
+        "Contract changes",
+        "Spreadsheet reverse engineering",
+        "Production implementation"
+      ],
+      "tools": [".NET", "Excel"],
+      "pdfPath": "/pdfs/insurance/recursive_actuarial_functions_with_lapse.pdf",
+      "linkLabel": "Details"
+    },
+    {
+      "slug": "piecewise_mortality_actuarial_functions",
+      "title": "Decomposition of Actuarial Functions under Piecewise Mortality Assumptions",
+      "summary": "Actuarial analysis of life insurance functions under piecewise-defined mortality assumptions, enabling decomposition of pricing and reserve formulas into segments with different mortality regimes.",
+      "keyContribution": "Derived a decomposition framework that splits actuarial quantities across time intervals with distinct mortality assumptions, allowing consistent pricing and reserving even when mortality inputs change discretely over time.",
+      "keywords": [
+        "Actuarial modeling",
+        "Life insurance",
+        "Mortality modeling",
+        "Piecewise functions",
+        "Pricing logic",
+        "Reserve calculations",
+        "Function decomposition",
+        "Time segmentation",
+        "Numerical consistency",
+        "Production implementation"
+      ],
+      "tools": [".NET", "Excel"],
+      "pdfPath": "/pdfs/insurance/piecewise_mortality_actuarial_functions.pdf",
+      "linkLabel": "Details"
+    },
+    {
+      "slug": "life_model_riders_integration",
+      "title": "Integration of Rider Premiums and Benefits in Multi-Component Life Insurance Models",
+      "summary": "Actuarial modeling of multi-component life insurance products with additional riders, focusing on consistent integration of rider premiums and benefits into the base contract pricing and reserve framework.",
+      "keyContribution": "Designed a unified modeling approach that integrates rider components into core actuarial calculations, ensuring consistency of premiums, benefits, and reserves across combined product structures.",
+      "keywords": [
+        "Actuarial modeling",
+        "Life insurance",
+        "Riders",
+        "Multi-component products",
+        "Pricing logic",
+        "Reserve calculations",
+        "Product integration",
+        "Benefit structure",
+        "Numerical consistency",
+        "Production implementation"
+      ],
+      "tools": [".NET", "Excel"],
+      "pdfPath": "/pdfs/insurance/life_model_riders_integration.pdf",
+      "linkLabel": "Details"
+    },
+    {
+      "slug": "surrender_value_paidup_consistency",
+      "title": "Surrender Value and Paid-Up Policy Consistency",
+      "summary": "Actuarial analysis of surrender values and paid-up policies, focusing on maintaining consistency between reserve-based valuations and contract transformations under early termination or premium cessation.",
+      "keyContribution": "Established a consistent framework linking surrender value and paid-up benefit calculations to underlying reserve definitions, ensuring actuarial and numerical coherence across contract state transitions.",
+      "keywords": [
+        "Actuarial modeling",
+        "Life insurance",
+        "Surrender value",
+        "Paid-up policy",
+        "Reserve calculations",
+        "Contract transformations",
+        "Pricing consistency",
+        "Numerical stability",
+        "Policy behavior",
+        "Production implementation"
+      ],
+      "tools": [".NET", "Excel"],
+      "pdfPath": "/pdfs/insurance/surrender_value_paidup_consistency.pdf",
+      "linkLabel": "Details"
+    },
+    {
+      "slug": "premium_calibration_fixed_benefits",
+      "title": "Premium Calibration under Fixed Benefit Structures",
+      "summary": "Actuarial calibration of premium levels for life insurance contracts with fixed benefits, focusing on solving inverse pricing problems under given benefit structures and mortality assumptions.",
+      "keyContribution": "Developed a stable inverse pricing framework that determines premium levels consistent with predefined benefits, ensuring alignment between pricing inputs, actuarial assumptions, and resulting reserve dynamics.",
+      "keywords": [
+        "Actuarial modeling",
+        "Life insurance",
+        "Premium calibration",
+        "Inverse problems",
+        "Pricing logic",
+        "Fixed benefits",
+        "Reserve calculations",
+        "Numerical methods",
+        "Model consistency",
+        "Production implementation"
+      ],
+      "tools": [".NET", "Excel"],
+      "pdfPath": "/pdfs/insurance/premium_calibration_fixed_benefits.pdf",
+      "linkLabel": "Details"
+    },
+    {
+      "slug": "reinsurance_exposure_allocation",
+      "title": "Reinsurance Exposure Allocation",
+      "summary": "Actuarial modeling of reinsurance exposure allocation, focusing on how risk and cash flows are distributed between insurer and reinsurer under different contract structures.",
+      "keyContribution": "Formulated a consistent allocation framework that maps underlying policy cash flows and risk measures to reinsurance structures, enabling transparent and numerically stable distribution of exposure between parties.",
+      "keywords": [
+        "Actuarial modeling",
+        "Reinsurance",
+        "Exposure allocation",
+        "Risk sharing",
+        "Cash flow modeling",
+        "Contract structure",
+        "Pricing logic",
+        "Reserve calculations",
+        "Numerical consistency",
+        "Production implementation"
+      ],
+      "tools": ["MSSQL", "Excel"],
+      "pdfPath": "/pdfs/insurance/reinsurance_exposure_allocation.pdf",
+      "linkLabel": "Details"
     }
   ]
 }
