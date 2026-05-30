@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { repo } from "@/lib/data/localRepository";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -33,6 +34,13 @@ export default async function MlDsTopicPage({
   const pdfEN = topic.items.find((item) => item.id.includes("_pdf_en"));
   const githubItems = topic.items.filter((item) =>
     item.id.includes("_github")
+  );
+
+  const otherItems = topic.items.filter(
+    (item) =>
+      item !== pdfCZ &&
+      item !== pdfEN &&
+      !item.id.includes("_github")
   );
 
   return (
@@ -139,7 +147,48 @@ export default async function MlDsTopicPage({
           </div>
         ))}
 
-        {!pdfCZ && !pdfEN && githubItems.length === 0 && (
+        {otherItems.map((item) => {
+          const isInternalLink = item.pdfPath.startsWith("/");
+
+          return (
+            <div
+              key={item.id}
+              className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md"
+            >
+              <div className="min-w-0">
+                <div className="text-base font-semibold">{item.title}</div>
+
+                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500">
+                  {item.year ? <span>{item.year}</span> : null}
+                  {item.level ? <span>{item.level}</span> : null}
+                  {(item.tags ?? []).map((tag) => (
+                    <span key={tag}>#{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              {isInternalLink ? (
+                <Link
+                  href={item.pdfPath}
+                  className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:opacity-90"
+                >
+                  Open
+                </Link>
+              ) : (
+                <a
+                  href={item.pdfPath}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:opacity-90"
+                >
+                  Open
+                </a>
+              )}
+            </div>
+          );
+        })}
+
+        {!pdfCZ && !pdfEN && githubItems.length === 0 && otherItems.length === 0 && (
           <div className="rounded-2xl border bg-white p-5 text-sm text-gray-500">
             Zatím zde nejsou žádné projekty.
           </div>
