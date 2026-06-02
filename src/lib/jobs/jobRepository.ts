@@ -72,7 +72,18 @@ export function getJobSummaries(): JobSummary[] {
         status,
         private_note
       FROM job_evaluations
-      ORDER BY final_score DESC, id DESC
+      WHERE final_score > 10 OR status in ('new','prepared','repeated')
+      ORDER BY
+      CASE
+          WHEN status = 'prepared' THEN 1
+          WHEN status = 'repeated' THEN 2
+          WHEN status = 'considered' THEN 4
+          WHEN status = 'applied' THEN 5
+          WHEN status = 'rejected' THEN 6
+          WHEN status = 'skipped'  THEN 7
+          ELSE 3
+      END,
+      final_score DESC, id DESC;
       `
     )
     .all();
