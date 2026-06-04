@@ -33,6 +33,19 @@ function getDb() {
   });
 }
 
+function getWritableDb() {
+  const dbPath = process.env.JOBS_DB_PATH;
+
+  if (!dbPath) {
+    throw new Error("Missing JOBS_DB_PATH in .env.local");
+  }
+
+  return new Database(dbPath, {
+    readonly: false,
+    fileMustExist: true,
+  });
+}
+
 function mapJobSummary(row: any): JobSummary {
   return {
     id: row.id,
@@ -72,7 +85,7 @@ export function getJobSummaries(): JobSummary[] {
         status,
         private_note
       FROM job_evaluations
-      WHERE final_score > 10 OR status in ('new','prepared','repeated')
+      WHERE final_score > 10 AND status is not 'delete'--in ('new','prepared','repeated')
       ORDER BY
       CASE
           WHEN status = 'prepared' THEN 1
@@ -131,4 +144,28 @@ export function getJobDetail(id: number): JobDetail | null {
     ...mapJobSummary(row),
     markdownReport: row.markdown_report,
   };
+}
+
+export function updateJobStatuses(ids: number[], status: string) {
+  if (ids.length === 0) {
+    return 0;
+  }
+
+  const db = getWritableDb();
+
+  try {
+    const placeholders = ids.map(() => "?").join(",");
+
+    const statement = db.prepare(`
+      UPDATE job_evaluations
+      SET status = ?
+      WHERE id IN (${placeholders})
+    `);
+
+    const result = statement.run(status, ...ids);
+
+    return result.changes;
+  } finally {
+    db.close();
+  }
 }
