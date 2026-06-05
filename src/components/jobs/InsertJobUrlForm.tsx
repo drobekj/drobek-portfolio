@@ -7,28 +7,33 @@ export default function InsertJobUrlForm({
   hasSelection,
   selectedIds,
   clearSelection,
+  setToolbarMessage,
 }: {
   hasSelection: boolean;
   selectedIds: number[];
   clearSelection: () => void;
+  setToolbarMessage: (message: string) => void;
 }) {
   const router = useRouter();
 
   const [url, setUrl] = useState("");
+  const hasUrl = url.trim().length > 0;
   const [busyMode, setBusyMode] = useState<"prepare" | "evaluate" | null>(null);
-  const [message, setMessage] = useState("");
-
+  
   async function run(mode: "prepare" | "evaluate") {
     const trimmedUrl = url.trim();
-
+    sessionStorage.removeItem("job-agent-highlight-ids");
+    sessionStorage.removeItem("job-agent-fresh-evaluated-ids");
+    setToolbarMessage("");
+    setToolbarMessage("");
     if (!trimmedUrl && !(mode === "evaluate" && selectedIds.length > 0)) {
-      setMessage("URL is required");
+      setToolbarMessage("URL is required");
       return;
     }
 
     if (!trimmedUrl && mode === "evaluate" && selectedIds.length > 0) {
       setBusyMode(mode);
-      setMessage("");
+      setToolbarMessage("");
 
       try {
         const response = await fetch("/api/job-agent/bulk-evaluate", {
@@ -42,11 +47,11 @@ export default function InsertJobUrlForm({
         const data = await response.json();
 
         if (!data.ok) {
-          setMessage(data.error ?? "Unknown error");
+          setToolbarMessage(data.error ?? "Unknown error");
           return;
         }
 
-        setMessage(data.output ?? "Bulk evaluate updated");
+        setToolbarMessage(data.output ?? "Bulk evaluate updated");
 
         sessionStorage.setItem(
           "job-agent-highlight-ids",
@@ -61,7 +66,7 @@ export default function InsertJobUrlForm({
 
         router.refresh();
       } catch {
-        setMessage("Request failed");
+        setToolbarMessage("Request failed");
       } finally {
         setBusyMode(null);
       }
@@ -79,7 +84,7 @@ export default function InsertJobUrlForm({
         )
       );
     setBusyMode(mode);
-    setMessage("");
+    setToolbarMessage("");
 
     try {
       const response = await fetch(`/api/job-agent/${mode}`, {
@@ -93,11 +98,11 @@ export default function InsertJobUrlForm({
       const data = await response.json();
 
       if (!data.ok) {
-        setMessage(data.error ?? "Unknown error");
+        setToolbarMessage(data.error ?? "Unknown error");
         return;
       }
 
-      setMessage(data.output ?? "Success");
+      setToolbarMessage(data.output ?? "Success");
       setUrl("");
 
       sessionStorage.setItem(
@@ -107,51 +112,51 @@ export default function InsertJobUrlForm({
       
       router.refresh();
     } catch {
-      setMessage("Request failed");
+      setToolbarMessage("Request failed");
     } finally {
       setBusyMode(null);
     }
   }
 
   return (
-    <div className="flex flex-col items-end gap-2">
-      <div className="flex gap-2">
+    <div className="flex min-w-0 items-center gap-2">      
+        <button
+  disabled={busyMode !== null}
+  onClick={() => run("prepare")}
+  className={`flex w-[92px] shrink-0 items-center justify-center gap-2 rounded px-4 py-2 text-sm font-semibold text-black transition-colors disabled:opacity-50 ${
+    url.trim()
+      ? "bg-blue-100 hover:bg-blue-200"
+      : "bg-gray-50 opacity-50 hover:bg-gray-100"
+  }`}
+>
+  {busyMode === "prepare" && (
+    <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
+  )}
+  Prepare
+</button>
+
+        <button
+  disabled={busyMode !== null}
+  onClick={() => run("evaluate")}
+  className={`flex w-[92px] shrink-0 items-center justify-center gap-2 rounded px-4 py-2 text-sm font-semibold text-black transition-colors disabled:opacity-50 ${
+    hasSelection || url.trim()
+      ? "bg-blue-100 hover:bg-blue-200"
+      : "bg-gray-50 opacity-50 hover:bg-gray-100"
+  }`}
+>
+  {busyMode === "evaluate" && (
+    <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
+  )}
+  Evaluate
+</button>
         <input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           disabled={busyMode !== null}
           placeholder="Insert URL"
-          className="w-[420px] rounded border px-3 py-2 text-sm disabled:bg-gray-100"
+          className="min-w-0 flex-1 rounded border px-3 py-2 text-sm disabled:bg-gray-100"
         />
 
-        <button
-          disabled={busyMode !== null}
-          onClick={() => run("prepare")}
-          className="flex items-center gap-2 rounded bg-gray-50 px-4 py-2 text-sm font-semibold hover:bg-gray-100 disabled:opacity-50"
-        >
-          {busyMode === "prepare" && (
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
-          )}
-          Prepare
-        </button>
-
-        <button
-          disabled={busyMode !== null}
-          onClick={() => run("evaluate")}
-          className={`flex items-center gap-2 rounded px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-50 ${
-            hasSelection
-              ? "bg-blue-100 hover:bg-blue-200"
-              : "bg-gray-50 hover:bg-gray-100"
-          }`}
-          >
-          {busyMode === "evaluate" && (
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
-          )}
-          Evaluate
-        </button>
-      </div>
-
-      {message && <div className="text-sm text-gray-500">{message}</div>}
     </div>
   );
 }

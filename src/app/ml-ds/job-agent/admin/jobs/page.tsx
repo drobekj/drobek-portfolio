@@ -17,14 +17,11 @@ export default function AdminJobsPage() {
               Internal dashboard for evaluated job opportunities.
             </p>
 
-            <p className="mt-1 text-sm text-gray-500">
-              {jobs.length} positions loaded
-            </p>
           </div>
         </div>
       </div>
 
-      <AdminJobsClient jobs={jobs} />
+      <AdminJobsClient jobs={jobs} positionsCount={jobs.length} />
     </div>
   );
 }

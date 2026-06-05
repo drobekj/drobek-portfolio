@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { JobSummary } from "@/lib/jobs/jobRepository";
@@ -11,14 +11,6 @@ type Props = {
   setSelectedIds: React.Dispatch<React.SetStateAction<Set<number>>>;
 };
 
-const STATUS_OPTIONS = [
-  "delete",
-  "applied",
-  "seen",
-  "new",
-  "rejected",
-  "skipped",
-];
 
 function jobRowId(url: string) {
   return `job-${encodeURIComponent(url)}`;
@@ -35,6 +27,7 @@ export default function ExpandableJobTable({
 }: Props) {
   const router = useRouter();
   const [openId, setOpenId] = useState<number | null>(null);
+  const [privateNotes, setPrivateNotes] = useState<Record<number, string>>({});
   const [freshEvaluatedIds, setFreshEvaluatedIds] = useState<Set<number>>(
     new Set()
   );
@@ -42,7 +35,7 @@ export default function ExpandableJobTable({
     new Set()
   );
   const [seenIds, setSeenIds] = useState<Set<number>>(new Set());  
-  const [isStatusMenuOpen, setIsStatusMenuOpen] = useState(false);
+  
   const [openSelectionState, setOpenSelectionState] = useState<{
     id: number;
     wasSelected: boolean;
@@ -54,24 +47,7 @@ export default function ExpandableJobTable({
 
   const hasSelection = selectedIds.size > 0;
 
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setIsStatusMenuOpen(false);
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);  
   
-  useEffect(() => {
-    setIsStatusMenuOpen(hasSelection);
-  }, [hasSelection]);
-
   function toggleAllVisible() {
     setSelectedIds((current) => {
       const next = hasSelection ? new Set<number>() : new Set(visibleIds);
@@ -231,8 +207,7 @@ export default function ExpandableJobTable({
       JSON.stringify(ids)
     );
 
-    setIsStatusMenuOpen(false);
-    setSelectedIds(new Set());
+        setSelectedIds(new Set());
 
     router.refresh();  
   }
@@ -293,27 +268,51 @@ useEffect(() => {
     return;
   }
 
-  if (targetUrl) {
-    const job = jobs.find(
-      (item) => item.url.replace(/\/$/, "") === targetUrl
-    );
+if (targetUrl) {
+  const job = jobs.find((item) => {
+    const normalizedItemUrl = item.url
+      .replace(/mock_app$/, "")
+      .replace(/\/$/, "");
 
-    const element = job
-      ? document.getElementById(jobRowIdById(job.id))
-      : null;
+    return normalizedItemUrl === targetUrl;
+  });
 
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+  const element = job
+    ? document.getElementById(jobRowIdById(job.id))
+    : null;
 
-      
-    }
-
-    sessionStorage.removeItem("job-agent-scroll-url");
+  if (job) {
+    setHighlightedRowIds(new Set([job.id]));
   }
+
+  if (element) {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+
+  sessionStorage.removeItem("job-agent-scroll-url");
+}
+
 }, [jobs]);
+
+async function savePrivateNote(id: number) {
+  const response = await fetch("/api/job-agent/private-note", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id,
+      privateNote: privateNotes[id] ?? "",
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to save private note");
+  }
+}
 
   return (
     <div className="mt-4 h-full overflow-auto rounded-xl border border-gray-200">
@@ -330,39 +329,7 @@ useEffect(() => {
                 aria-label="Select all visible jobs"
               />
             </th>
-            <th
-              className={`relative px-4 py-3 ${
-                hasSelection ? "cursor-pointer bg-blue-100" : ""
-              }`}
-              onClick={() => {
-                if (!hasSelection) {
-                  return;
-                }
-
-                setIsStatusMenuOpen((current) => !current);
-              }}
-            >
-              <span>Status
-              </span>
-
-              {hasSelection && isStatusMenuOpen ? (
-                <div className="absolute -left-0 top-full z-30 mt-1 w-fit rounded-md border border-gray-200 bg-blue-100/[0.85] shadow-lg">
-                  {STATUS_OPTIONS.map((status) => (
-                    <button
-                      key={status}
-                      type="button"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        void handleStatusChange(status);
-                      }}
-                      className="block w-full px-2 py-1 text-left text-sm whitespace-nowrap hover:bg-white/70"
-                    >
-                      {status}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-            </th>
+<th className="px-4 py-3">Status</th>
             <th className="px-4 py-3">Title</th>
             <th className="px-4 py-3">Company</th>
             <th className="px-4 py-3">Location</th>
@@ -462,22 +429,40 @@ useEffect(() => {
                           <span className="text-gray-500">Shortlisted:</span>{" "}
                           {job.isShortlisted ? "yes" : "no"}
                         </div>
+<div>
+  <Link
+    href={`/ml-ds/job-agent/admin/jobs/${job.id}`}
+    className="font-medium underline"
+    onClick={(event) => event.stopPropagation()}
+  >
+    Open full detail
+  </Link>
+</div>
 
-                        <div className="md:col-span-2">
-                          <span className="text-gray-500">Private note:</span>{" "}
-                          {job.privateNote ?? ""}
-                        </div>
+<div className="flex items-center gap-2">
+  <span className="shrink-0 text-gray-500">Private note:</span>
+      <textarea
+      value={privateNotes[job.id] ?? job.privateNote ?? ""}
+      onChange={(e) =>
+        setPrivateNotes((current) => ({
+          ...current,
+          [job.id]: e.target.value,
+        }))
+      }
+      rows={1}
+      className="flex-1 rounded border px-3 py-2"
+    />
 
-                        <div className="md:col-span-2">
-                          <Link
-                            href={`/ml-ds/job-agent/admin/jobs/${job.id}`}
-                            className="font-medium underline"
-                            onClick={(event) => event.stopPropagation()}
-                          >
-                            Open full detail
-                          </Link>
-                        </div>
-                      </div>
+    <button
+      type="button"
+      onClick={() => savePrivateNote(job.id)}
+      className="rounded bg-blue-100 px-4 py-2 text-sm font-semibold hover:bg-blue-200"
+    >
+      Save
+    </button>
+  </div>
+</div>
+
                     </td>
                   </tr>
                 ) : null}

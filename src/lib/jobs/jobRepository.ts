@@ -85,14 +85,15 @@ export function getJobSummaries(): JobSummary[] {
         status,
         private_note
       FROM job_evaluations
-      WHERE final_score > 10 AND status is not 'delete'
+      WHERE status is not 'delete'
       ORDER BY
       CASE
-          WHEN status = 'considered' THEN 2
+          WHEN status = 'new' THEN 1
+          WHEN status = 'seen' THEN 2
           WHEN status = 'applied' THEN 3
           WHEN status = 'rejected' THEN 4
           WHEN status = 'skipped'  THEN 5
-          ELSE 1
+          ELSE 6
       END,
       final_score DESC, id DESC;
       `
@@ -189,6 +190,26 @@ export function getJobUrlsByIds(ids: number[]) {
       .all(...ids) as { id: number; url: string }[];
 
     return rows;
+  } finally {
+    db.close();
+  }
+}
+
+export function updateJobPrivateNote(id: number, privateNote: string) {
+  const db = getWritableDb();
+
+  try {
+    const result = db
+      .prepare(
+        `
+        UPDATE job_evaluations
+        SET private_note = ?
+        WHERE id = ?
+        `
+      )
+      .run(privateNote, id);
+
+    return result.changes;
   } finally {
     db.close();
   }
