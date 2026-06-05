@@ -85,16 +85,14 @@ export function getJobSummaries(): JobSummary[] {
         status,
         private_note
       FROM job_evaluations
-      WHERE final_score > 10 AND status is not 'delete'--in ('new','prepared','repeated')
+      WHERE final_score > 10 AND status is not 'delete'
       ORDER BY
       CASE
-          WHEN status = 'prepared' THEN 1
-          WHEN status = 'repeated' THEN 2
-          WHEN status = 'considered' THEN 4
-          WHEN status = 'applied' THEN 5
-          WHEN status = 'rejected' THEN 6
-          WHEN status = 'skipped'  THEN 7
-          ELSE 3
+          WHEN status = 'considered' THEN 2
+          WHEN status = 'applied' THEN 3
+          WHEN status = 'rejected' THEN 4
+          WHEN status = 'skipped'  THEN 5
+          ELSE 1
       END,
       final_score DESC, id DESC;
       `
@@ -165,6 +163,32 @@ export function updateJobStatuses(ids: number[], status: string) {
     const result = statement.run(status, ...ids);
 
     return result.changes;
+  } finally {
+    db.close();
+  }
+}
+
+export function getJobUrlsByIds(ids: number[]) {
+  if (ids.length === 0) {
+    return [];
+  }
+
+  const db = getDb();
+
+  try {
+    const placeholders = ids.map(() => "?").join(",");
+
+    const rows = db
+      .prepare(
+        `
+        SELECT id, url
+        FROM job_evaluations
+        WHERE id IN (${placeholders})
+        `
+      )
+      .all(...ids) as { id: number; url: string }[];
+
+    return rows;
   } finally {
     db.close();
   }

@@ -7,15 +7,15 @@ import type { JobSummary } from "@/lib/jobs/jobRepository";
 
 type Props = {
   jobs: JobSummary[];
+  selectedIds: Set<number>;
+  setSelectedIds: React.Dispatch<React.SetStateAction<Set<number>>>;
 };
 
 const STATUS_OPTIONS = [
   "delete",
-  "new",
-  "prepared",
-  "evaluated",
   "applied",
-  "renew",
+  "seen",
+  "new",
   "rejected",
   "skipped",
 ];
@@ -28,11 +28,26 @@ function jobRowIdById(id: number) {
   return `job-id-${id}`;
 }
 
-export default function ExpandableJobTable({ jobs }: Props) {
+export default function ExpandableJobTable({
+  jobs,
+  selectedIds,
+  setSelectedIds,
+}: Props) {
   const router = useRouter();
   const [openId, setOpenId] = useState<number | null>(null);
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [freshEvaluatedIds, setFreshEvaluatedIds] = useState<Set<number>>(
+    new Set()
+  );
+  const [highlightedRowIds, setHighlightedRowIds] = useState<Set<number>>(
+    new Set()
+  );
+  const [seenIds, setSeenIds] = useState<Set<number>>(new Set());  
   const [isStatusMenuOpen, setIsStatusMenuOpen] = useState(false);
+  const [openSelectionState, setOpenSelectionState] = useState<{
+    id: number;
+    wasSelected: boolean;
+    wasChanged: boolean;
+  } | null>(null);
   const visibleIds = useMemo(() => jobs.map((job) => job.id), [jobs]);
 
   const hasVisibleJobs = visibleIds.length > 0;
@@ -53,13 +68,23 @@ export default function ExpandableJobTable({ jobs }: Props) {
     };
   }, []);  
   
+  useEffect(() => {
+    setIsStatusMenuOpen(hasSelection);
+  }, [hasSelection]);
+
   function toggleAllVisible() {
     setSelectedIds((current) => {
-      if (hasSelection) {
-        return new Set();
+      const next = hasSelection ? new Set<number>() : new Set(visibleIds);
+
+      if (openId !== null && visibleIds.includes(openId)) {
+        setOpenSelectionState((current) =>
+          current && current.id === openId
+            ? { ...current, wasChanged: true }
+            : current
+        );
       }
 
-      return new Set(visibleIds);
+      return next;
     });
   }
 
@@ -73,11 +98,113 @@ export default function ExpandableJobTable({ jobs }: Props) {
         next.add(id);
       }
 
+      if (openId === id) {
+        setOpenSelectionState((current) =>
+          current && current.id === id
+            ? { ...current, wasChanged: true }
+            : current
+        );
+      }
+
       return next;
     });
   }
 
+  function handleRowClick(id: number) {
+    const currentlyOpenId = openId;
+    const isClickingOpenRow = currentlyOpenId === id;
+    const currentlyOpenJob = currentlyOpenId !== null
+      ? jobs.find((item) => item.id === currentlyOpenId)
+      : null;
+
+    if (currentlyOpenId !== null && openSelectionState) {
+      setSelectedIds((current) => {
+        const next = new Set(current);
+
+        if (!openSelectionState.wasChanged) {
+          if (openSelectionState.wasSelected) {
+            next.add(currentlyOpenId);
+          } else {
+            next.delete(currentlyOpenId);
+          }
+        }
+
+        if (!isClickingOpenRow) {
+          next.add(id);
+        }
+
+        return next;
+      });
+    } else {
+      setSelectedIds((current) => {
+        const next = new Set(current);
+
+        if (!isClickingOpenRow) {
+          next.add(id);
+        }
+
+        return next;
+      });
+    }
+
+    if (isClickingOpenRow) {
+      const job = jobs.find((item) => item.id === id);
+
+      setOpenId(null);
+      setOpenSelectionState(null);
+
+      if (job?.status === "new") {
+        setSeenIds((current) => {
+          const next = new Set(current);
+          next.add(id);
+          return next;
+        });
+
+        void markAsSeen(id);
+      }
+      setFreshEvaluatedIds((current) => {
+        const next = new Set(current);
+        next.delete(id);
+        return next;
+      });
+
+      return;
+    }
+
+    if (currentlyOpenId !== null && !isClickingOpenRow) {
+      setFreshEvaluatedIds((current) => {
+        const next = new Set(current);
+        next.delete(currentlyOpenId);
+        return next;
+      });
+    }
+    if (
+      currentlyOpenId !== null &&
+      !isClickingOpenRow &&
+      currentlyOpenJob?.status === "new"
+    ) {
+      setSeenIds((current) => {
+        const next = new Set(current);
+        next.add(currentlyOpenId);
+        return next;
+      });
+
+      void markAsSeen(currentlyOpenId);
+    }
+
+    setOpenSelectionState({
+      id,
+      wasSelected: selectedIds.has(id),
+      wasChanged: false,
+    });
+
+    const job = jobs.find((item) => item.id === id);
+
+    setOpenId(id);
+  }
+
   async function handleStatusChange(status: string) {
+    setHighlightedRowIds(new Set());
     if (selectedIds.size === 0) {
       return;
     }
@@ -110,31 +237,51 @@ export default function ExpandableJobTable({ jobs }: Props) {
     router.refresh();  
   }
 
+  async function markAsSeen(id: number) {
+    try {
+      const response = await fetch("/api/job-agent/status", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ids: [id],
+          status: "seen",
+        }),
+      });
+
+      if (response.ok) {
+        router.refresh();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 useEffect(() => {
   const targetUrl = sessionStorage.getItem("job-agent-scroll-url");
   const highlightedIds = sessionStorage.getItem("job-agent-highlight-ids");
+  const freshIds = sessionStorage.getItem("job-agent-fresh-evaluated-ids");
+
+  if (freshIds) {
+    setFreshEvaluatedIds(new Set(JSON.parse(freshIds) as number[]));
+    sessionStorage.removeItem("job-agent-fresh-evaluated-ids");
+  }
 
   if (!targetUrl && !highlightedIds) {
     return;
   }
 
-  document
-    .querySelectorAll(".job-agent-highlight")
-    .forEach((el) =>
-      el.classList.remove(
-      "job-agent-highlight",
-      "bg-yellow-50",
-      "hover:bg-yellow-100"
-    )
-    );
+    setHighlightedRowIds(new Set());
 
-  if (highlightedIds) {
+    if (highlightedIds) {
     const ids = JSON.parse(highlightedIds) as number[];
-    const elements = ids
-      .map((id) => document.getElementById(jobRowIdById(id)))
-      .filter((element): element is HTMLElement => element !== null);
 
-    const firstElement = elements[0];
+    setHighlightedRowIds(new Set(ids));
+
+    const firstElement = document.getElementById(
+      jobRowIdById(ids[0])
+    );
 
     if (firstElement) {
       firstElement.scrollIntoView({
@@ -143,15 +290,6 @@ useEffect(() => {
       });
     }
 
-    elements.forEach((element) => {
-      element.classList.add(
-        "job-agent-highlight",
-        "bg-yellow-50",
-        "hover:bg-yellow-100"
-      );
-    });
-
-    sessionStorage.removeItem("job-agent-highlight-ids");
     return;
   }
 
@@ -170,7 +308,7 @@ useEffect(() => {
         block: "center",
       });
 
-      element.classList.add("job-agent-highlight", "bg-yellow-50");
+      
     }
 
     sessionStorage.removeItem("job-agent-scroll-url");
@@ -208,7 +346,7 @@ useEffect(() => {
               </span>
 
               {hasSelection && isStatusMenuOpen ? (
-                <div className="absolute left-4 top-full z-30 mt-1 w-32 rounded-md border border-gray-200 bg-white shadow-lg">
+                <div className="absolute -left-0 top-full z-30 mt-1 w-fit rounded-md border border-gray-200 bg-blue-100/[0.85] shadow-lg">
                   {STATUS_OPTIONS.map((status) => (
                     <button
                       key={status}
@@ -217,7 +355,7 @@ useEffect(() => {
                         event.stopPropagation();
                         void handleStatusChange(status);
                       }}
-                      className="block w-full px-3 py-1 text-left text-sm hover:bg-gray-50"
+                      className="block w-full px-2 py-1 text-left text-sm whitespace-nowrap hover:bg-white/70"
                     >
                       {status}
                     </button>
@@ -239,14 +377,20 @@ useEffect(() => {
           {jobs.map((job) => {
             const isOpen = openId === job.id;
             const isSelected = selectedIds.has(job.id);
+            const isUnreadLike = job.status === "new" || freshEvaluatedIds.has(job.id);
 
             return (
               <Fragment key={job.id}>
                 <tr
                   id={jobRowIdById(job.id)}
-                  onClick={() => setOpenId(isOpen ? null : job.id)}
-                  className="scroll-mt-12 cursor-pointer border-b border-gray-100 hover:bg-gray-50 job-row"
-                >
+                  onClick={() => handleRowClick(job.id)}
+                  className={`scroll-mt-12 cursor-pointer border-b border-gray-100 job-row ${
+                    highlightedRowIds.has(job.id)
+                      ? "bg-yellow-50 hover:bg-yellow-100"
+                      : "hover:bg-gray-50"
+                  } ${
+                    isUnreadLike ? "font-semibold" : ""
+                  }`}                >
                   <td className="px-4 py-3">
                     <input
                       type="checkbox"
@@ -260,7 +404,7 @@ useEffect(() => {
 
                   <td className="px-4 py-3">{job.status ?? ""}</td>
 
-                  <td className="px-4 py-3 font-medium">
+                  <td className="px-4 py-3">
                     {job.title ?? "(no title)"}
                   </td>
 

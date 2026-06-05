@@ -3,7 +3,15 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function InsertJobUrlForm() {
+export default function InsertJobUrlForm({
+  hasSelection,
+  selectedIds,
+  clearSelection,
+}: {
+  hasSelection: boolean;
+  selectedIds: number[];
+  clearSelection: () => void;
+}) {
   const router = useRouter();
 
   const [url, setUrl] = useState("");
@@ -11,11 +19,65 @@ export default function InsertJobUrlForm() {
   const [message, setMessage] = useState("");
 
   async function run(mode: "prepare" | "evaluate") {
-    if (!url.trim()) {
+    const trimmedUrl = url.trim();
+
+    if (!trimmedUrl && !(mode === "evaluate" && selectedIds.length > 0)) {
       setMessage("URL is required");
       return;
     }
 
+    if (!trimmedUrl && mode === "evaluate" && selectedIds.length > 0) {
+      setBusyMode(mode);
+      setMessage("");
+
+      try {
+        const response = await fetch("/api/job-agent/bulk-evaluate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ids: selectedIds }),
+        });
+
+        const data = await response.json();
+
+        if (!data.ok) {
+          setMessage(data.error ?? "Unknown error");
+          return;
+        }
+
+        setMessage(data.output ?? "Bulk evaluate updated");
+
+        sessionStorage.setItem(
+          "job-agent-highlight-ids",
+          JSON.stringify([...selectedIds].reverse())
+        );
+        
+        sessionStorage.setItem(
+          "job-agent-fresh-evaluated-ids",
+          JSON.stringify(selectedIds)
+        );
+        clearSelection();
+
+        router.refresh();
+      } catch {
+        setMessage("Request failed");
+      } finally {
+        setBusyMode(null);
+      }
+
+      return;
+    }
+
+    document
+      .querySelectorAll(".job-agent-highlight")
+      .forEach((el) =>
+        el.classList.remove(
+          "job-agent-highlight",
+          "bg-yellow-50",
+          "hover:bg-yellow-100"
+        )
+      );
     setBusyMode(mode);
     setMessage("");
 
@@ -25,7 +87,7 @@ export default function InsertJobUrlForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url: trimmedUrl }),
       });
 
       const data = await response.json();
@@ -40,7 +102,7 @@ export default function InsertJobUrlForm() {
 
       sessionStorage.setItem(
         "job-agent-scroll-url",
-        url.trim().replace(/\/$/, "")
+        trimmedUrl.replace(/\/$/, "")
       );
       
       router.refresh();
@@ -65,7 +127,7 @@ export default function InsertJobUrlForm() {
         <button
           disabled={busyMode !== null}
           onClick={() => run("prepare")}
-          className="flex items-center gap-2 rounded bg-gray-200 px-4 py-2 text-sm disabled:opacity-50"
+          className="flex items-center gap-2 rounded bg-gray-50 px-4 py-2 text-sm font-semibold hover:bg-gray-100 disabled:opacity-50"
         >
           {busyMode === "prepare" && (
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
@@ -76,10 +138,14 @@ export default function InsertJobUrlForm() {
         <button
           disabled={busyMode !== null}
           onClick={() => run("evaluate")}
-          className="flex items-center gap-2 rounded bg-black px-4 py-2 text-sm text-white disabled:opacity-50"
-        >
+          className={`flex items-center gap-2 rounded px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-50 ${
+            hasSelection
+              ? "bg-blue-100 hover:bg-blue-200"
+              : "bg-gray-50 hover:bg-gray-100"
+          }`}
+          >
           {busyMode === "evaluate" && (
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
           )}
           Evaluate
         </button>
