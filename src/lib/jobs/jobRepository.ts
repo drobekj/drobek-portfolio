@@ -11,7 +11,6 @@ export type JobSummary = {
   finalScore: number;
   verdict: string | null;
   salaryEstimateCzk: number | null;
-  isShortlisted: boolean;
   status: string | null;
   privateNote: string | null;
 };
@@ -58,7 +57,6 @@ function mapJobSummary(row: any): JobSummary {
     finalScore: row.final_score,
     verdict: row.verdict,
     salaryEstimateCzk: row.salary_estimate_czk,
-    isShortlisted: Boolean(row.is_shortlisted),
     status: row.status,
     privateNote: row.private_note,
   };
@@ -81,11 +79,10 @@ export function getJobSummaries(): JobSummary[] {
         final_score,
         verdict,
         salary_estimate_czk,
-        is_shortlisted,
         status,
         private_note
       FROM job_evaluations
-      WHERE status is not 'delete'
+      WHERE status != 'delete'
       ORDER BY
       CASE
           WHEN status = 'new' THEN 1
@@ -122,7 +119,6 @@ export function getJobDetail(id: number): JobDetail | null {
         final_score,
         verdict,
         salary_estimate_czk,
-        is_shortlisted,
         status,
         private_note,
         markdown_report

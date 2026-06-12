@@ -28,6 +28,9 @@ export default function ExpandableJobTable({
   const router = useRouter();
   const [openId, setOpenId] = useState<number | null>(null);
   const [privateNotes, setPrivateNotes] = useState<Record<number, string>>({});
+  const [savedNoteIds, setSavedNoteIds] = useState<Set<number>>(new Set());
+  const [savingNoteIds, setSavingNoteIds] = useState<Set<number>>(new Set());
+  const [inactiveNoteIds, setInactiveNoteIds] = useState<Set<number>>(new Set());
   const [freshEvaluatedIds, setFreshEvaluatedIds] = useState<Set<number>>(
     new Set()
   );
@@ -49,22 +52,29 @@ export default function ExpandableJobTable({
 
   
   function toggleAllVisible() {
+    if (openId !== null && visibleIds.includes(openId)) {
+      setOpenSelectionState((current) =>
+        current && current.id === openId
+          ? { ...current, wasChanged: true }
+          : current
+      );
+    }
+
     setSelectedIds((current) => {
       const next = hasSelection ? new Set<number>() : new Set(visibleIds);
-
-      if (openId !== null && visibleIds.includes(openId)) {
-        setOpenSelectionState((current) =>
-          current && current.id === openId
-            ? { ...current, wasChanged: true }
-            : current
-        );
-      }
-
       return next;
     });
   }
 
   function toggleSelected(id: number) {
+    if (openId === id) {
+      setOpenSelectionState((current) =>
+        current && current.id === id
+          ? { ...current, wasChanged: true }
+          : current
+      );
+    }
+
     setSelectedIds((current) => {
       const next = new Set(current);
 
@@ -72,14 +82,6 @@ export default function ExpandableJobTable({
         next.delete(id);
       } else {
         next.add(id);
-      }
-
-      if (openId === id) {
-        setOpenSelectionState((current) =>
-          current && current.id === id
-            ? { ...current, wasChanged: true }
-            : current
-        );
       }
 
       return next;
@@ -129,7 +131,7 @@ export default function ExpandableJobTable({
       setOpenId(null);
       setOpenSelectionState(null);
 
-      if (job?.status === "new") {
+      if (job?.status === "new" && !openSelectionState?.wasChanged) {
         setSeenIds((current) => {
           const next = new Set(current);
           next.add(id);
@@ -157,7 +159,7 @@ export default function ExpandableJobTable({
     if (
       currentlyOpenId !== null &&
       !isClickingOpenRow &&
-      currentlyOpenJob?.status === "new"
+      currentlyOpenJob?.status === "new" && !openSelectionState?.wasChanged
     ) {
       setSeenIds((current) => {
         const next = new Set(current);
@@ -176,41 +178,65 @@ export default function ExpandableJobTable({
 
     const job = jobs.find((item) => item.id === id);
 
+    setInactiveNoteIds((current) => {
+      const next = new Set(current);
+      next.add(id);
+      return next;
+    });
     setOpenId(id);
   }
 
-  async function handleStatusChange(status: string) {
-    setHighlightedRowIds(new Set());
-    if (selectedIds.size === 0) {
-      return;
-    }
+async function handleStatusChange(status: string) {
+  setHighlightedRowIds(new Set());
 
-    const response = await fetch("/api/job-agent/status", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ids: Array.from(selectedIds),
-        status,
-      }),
-    });
+  const targetIds =
+    selectedIds.size > 0
+      ? Array.from(selectedIds)
+      : openId !== null
+        ? [openId]
+        : [];
 
-    if (!response.ok) {
-      throw new Error("Failed to update status");
-    }
-
-    const ids = Array.from(selectedIds).reverse();
-
-    sessionStorage.setItem(
-      "job-agent-highlight-ids",
-      JSON.stringify(ids)
-    );
-
-        setSelectedIds(new Set());
-
-    router.refresh();  
+  if (targetIds.length === 0) {
+    return;
   }
+
+  const isOpenRowTargeted =
+    openId !== null && targetIds.includes(openId);
+
+  if (isOpenRowTargeted) {
+    setOpenSelectionState((current) =>
+      current && current.id === openId
+        ? { ...current, wasChanged: true }
+        : current
+    );
+  }
+
+  const response = await fetch("/api/job-agent/status", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ids: targetIds,
+      status,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update status");
+  }
+
+  const ids = [...targetIds].reverse();
+
+  sessionStorage.setItem(
+    "job-agent-highlight-ids",
+    JSON.stringify(ids)
+  );
+
+  setSelectedIds(new Set());
+
+  router.refresh();
+}
 
   async function markAsSeen(id: number) {
     try {
@@ -298,6 +324,8 @@ if (targetUrl) {
 }, [jobs]);
 
 async function savePrivateNote(id: number) {
+  setSavingNoteIds((current) => new Set(current).add(id));
+
   const response = await fetch("/api/job-agent/private-note", {
     method: "POST",
     headers: {
@@ -309,9 +337,23 @@ async function savePrivateNote(id: number) {
     }),
   });
 
+  setSavingNoteIds((current) => {
+    const next = new Set(current);
+    next.delete(id);
+    return next;
+  });
+
   if (!response.ok) {
     throw new Error("Failed to save private note");
   }
+
+  setInactiveNoteIds((current) => {
+    const next = new Set(current);
+    next.add(id);
+    return next;
+  });
+  
+  setSavedNoteIds((current) => new Set(current).add(id));
 }
 
   return (
@@ -426,42 +468,55 @@ async function savePrivateNote(id: number) {
                         </div>
 
                         <div>
-                          <span className="text-gray-500">Shortlisted:</span>{" "}
-                          {job.isShortlisted ? "yes" : "no"}
+                          <Link
+                            href={`/ml-ds/job-agent/admin/jobs/${job.id}`}
+                            className="font-medium underline"
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            Open full detail
+                          </Link>
                         </div>
-<div>
-  <Link
-    href={`/ml-ds/job-agent/admin/jobs/${job.id}`}
-    className="font-medium underline"
-    onClick={(event) => event.stopPropagation()}
-  >
-    Open full detail
-  </Link>
-</div>
 
-<div className="flex items-center gap-2">
-  <span className="shrink-0 text-gray-500">Private note:</span>
-      <textarea
-      value={privateNotes[job.id] ?? job.privateNote ?? ""}
-      onChange={(e) =>
-        setPrivateNotes((current) => ({
-          ...current,
-          [job.id]: e.target.value,
-        }))
-      }
-      rows={1}
-      className="flex-1 rounded border px-3 py-2"
-    />
+                        <div className="flex items-center gap-2">
+                          <span className="shrink-0 text-gray-500">Private note:</span>
+<textarea
+  value={privateNotes[job.id] ?? job.privateNote ?? ""}
+  onChange={(e) => {
+    setInactiveNoteIds((current) => {
+      const next = new Set(current);
+      next.delete(job.id);
+      return next;
+    });
 
-    <button
-      type="button"
-      onClick={() => savePrivateNote(job.id)}
-      className="rounded bg-blue-100 px-4 py-2 text-sm font-semibold hover:bg-blue-200"
-    >
-      Save
-    </button>
-  </div>
-</div>
+    setPrivateNotes((current) => ({
+      ...current,
+      [job.id]: e.target.value,
+    }));
+  }}
+  onFocus={() => {
+    setInactiveNoteIds((current) => {
+      const next = new Set(current);
+      next.delete(job.id);
+      return next;
+    });
+  }}
+  rows={1}
+  className={`flex-1 rounded border px-3 py-2 ${
+    inactiveNoteIds.has(job.id) ? "text-gray-400" : "text-gray-900"
+  }`}
+/>
+                            <button
+                              type="button"
+                              onClick={() => savePrivateNote(job.id)}
+                              disabled={savingNoteIds.has(job.id)}
+                              className={`rounded bg-blue-100 px-4 py-2 text-sm font-semibold transition active:translate-y-px active:scale-95 hover:bg-blue-200 ${
+                                savingNoteIds.has(job.id) ? "opacity-60" : ""
+                              }`}
+                            >
+                              Save
+                            </button>
+                        </div>
+                      </div>
 
                     </td>
                   </tr>

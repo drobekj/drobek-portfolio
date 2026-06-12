@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getJobDetail } from "@/lib/jobs/jobRepository";
+import { BackToJobsButton } from "@/components/jobs/BackToJobsButton";
 
 type Props = {
   params: Promise<{
@@ -18,12 +19,7 @@ export default async function AdminJobDetailPage({ params }: Props) {
 
   return (
     <div>
-      <Link
-        href="/ml-ds/job-agent/admin/jobs"
-        className="text-sm text-gray-500 hover:text-gray-900"
-      >
-        ← Back to jobs
-      </Link>
+<BackToJobsButton id={job.id} status={job.status} />
 
       <div className="mt-6">
         <h1 className="text-3xl font-semibold tracking-tight">
