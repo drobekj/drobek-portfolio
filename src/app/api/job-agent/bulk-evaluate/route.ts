@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     for (const job of jobs) {
       await execFileAsync(
         "python",
-        ["add_web_job.py", "evaluate", job.url],
+        ["add_web_job.py", "evaluate", job.url, "--force"],
         {
           cwd: JOB_AGENT_DIR,
           windowsHide: true,

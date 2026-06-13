@@ -85,12 +85,13 @@ export function getJobSummaries(): JobSummary[] {
       WHERE status != 'delete'
       ORDER BY
       CASE
-          WHEN status = 'new' THEN 1
-          WHEN status = 'seen' THEN 2
-          WHEN status = 'applied' THEN 3
-          WHEN status = 'rejected' THEN 4
-          WHEN status = 'skipped'  THEN 5
-          ELSE 6
+          WHEN verdict = '' THEN 1
+          WHEN status = 'new' THEN 2
+          WHEN status = 'seen' THEN 3
+          WHEN status = 'applied' THEN 4
+          WHEN status = 'rejected' THEN 5
+          WHEN status = 'skipped'  THEN 6
+          ELSE 7
       END,
       final_score DESC, id DESC;
       `

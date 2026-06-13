@@ -141,6 +141,25 @@ export default function ExpandableJobTable({
           return next;
         });
 
+        
+        sessionStorage.setItem(
+  "job-agent-highlight-ids",
+  JSON.stringify([id])
+);
+
+setHighlightedRowIds(new Set([id]));
+
+window.setTimeout(() => {
+  const element = document.getElementById(jobRowIdById(id));
+
+  if (element) {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+}, 100);
+
         void markAsSeen(id);
       }
       setFreshEvaluatedIds((current) => {
@@ -169,6 +188,13 @@ export default function ExpandableJobTable({
         next.add(currentlyOpenId);
         return next;
       });
+
+sessionStorage.setItem(
+  "job-agent-highlight-ids",
+  JSON.stringify([currentlyOpenId])
+);
+
+setHighlightedRowIds(new Set([currentlyOpenId]));
 
       void markAsSeen(currentlyOpenId);
     }
@@ -268,6 +294,7 @@ async function handleStatusChange(status: string) {
 useEffect(() => {
   const targetUrl = sessionStorage.getItem("job-agent-scroll-url");
   const highlightedIds = sessionStorage.getItem("job-agent-highlight-ids");
+  const scrollId = sessionStorage.getItem("job-agent-scroll-id");
   const freshIds = sessionStorage.getItem("job-agent-fresh-evaluated-ids");
 
   if (freshIds) {
@@ -275,13 +302,38 @@ useEffect(() => {
     sessionStorage.removeItem("job-agent-fresh-evaluated-ids");
   }
 
-  if (!targetUrl && !highlightedIds) {
+  if (!targetUrl && !highlightedIds && !scrollId) {
+  return;
+}
+
+
+
+  if (scrollId) {
+    if (highlightedIds) {
+      setHighlightedRowIds(
+        new Set(JSON.parse(highlightedIds) as number[])
+      );
+    }
+
+    window.setTimeout(() => {
+      const element = document.getElementById(
+        jobRowIdById(Number(scrollId))
+      );
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+
+      sessionStorage.removeItem("job-agent-scroll-id");
+    }, 100);
+
     return;
   }
 
-    setHighlightedRowIds(new Set());
-
-    if (highlightedIds) {
+  if (highlightedIds) {
     const ids = JSON.parse(highlightedIds) as number[];
 
     setHighlightedRowIds(new Set(ids));
@@ -482,17 +534,28 @@ className={`h-4 w-4 ${
                         </div>
 
                         <div>
-                          <Link
-                            href={
-                              readOnly
-                                ? `/ml-ds/job-agent/public/jobs/${job.id}`
-                                : `/ml-ds/job-agent/admin/jobs/${job.id}`
-                            }
-                            className="font-medium underline"
-                            onClick={(event) => event.stopPropagation()}
-                          >
-                            Open full detail
-                          </Link>
+<Link
+  href={
+    readOnly
+      ? `/ml-ds/job-agent/public/jobs/${job.id}`
+      : `/ml-ds/job-agent/admin/jobs/${job.id}`
+  }
+  className="font-medium underline"
+  onClick={(event) => {
+    event.stopPropagation();
+
+    sessionStorage.setItem(
+      "job-agent-scroll-id",
+      String(job.id)
+    );
+
+    if (!readOnly && job.status === "new") {
+      void markAsSeen(job.id);
+    }
+  }}
+>
+  Open full detail
+</Link>
                         </div>
 
                         <div className="flex items-center gap-2">

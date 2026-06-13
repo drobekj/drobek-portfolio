@@ -82,6 +82,11 @@ className={`w-[92px] shrink-0 rounded px-3 py-2 text-center text-sm font-semibol
     <InsertJobUrlForm
       hasSelection={selectedIds.size > 0}
       selectedIds={Array.from(selectedIds)}
+      selectedAlreadyEvaluatedCount={
+        jobs.filter(
+          (job) => selectedIds.has(job.id) && job.verdict !== ""
+        ).length
+      }
       clearSelection={() => setSelectedIds(new Set())}
       setToolbarMessage={setToolbarMessage}
       readOnly={readOnly}
