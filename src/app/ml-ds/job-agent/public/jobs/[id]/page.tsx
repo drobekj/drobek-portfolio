@@ -6,8 +6,13 @@ type Props = {
   }>;
 };
 
-export default async function AdminJobDetailPage({ params }: Props) {
+export default async function PublicJobDetailPage({ params }: Props) {
   const { id } = await params;
 
-  return <JobDetailContent id={Number(id)} />;
+  return (
+    <JobDetailContent
+      id={Number(id)}
+      mode="public"
+    />
+  );
 }

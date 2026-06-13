@@ -5,13 +5,18 @@ import { useRouter } from "next/navigation";
 type BackToJobsButtonProps = {
   id: number;
   status: string | null;
+  mode?: "admin" | "public";
 };
 
-export function BackToJobsButton({ id, status }: BackToJobsButtonProps) {
+export function BackToJobsButton({
+  id,
+  status,
+  mode = "admin",
+}: BackToJobsButtonProps) {
   const router = useRouter();
 
   async function handleClick() {
-    if (status === "new") {
+    if (mode === "admin" && status === "new") {
       await fetch("/api/job-agent/status", {
         method: "POST",
         headers: {
@@ -24,7 +29,11 @@ export function BackToJobsButton({ id, status }: BackToJobsButtonProps) {
       });
     }
 
-    router.push("/ml-ds/job-agent/admin/jobs");
+    router.push(
+      mode === "public"
+          ? "/ml-ds/job-agent/public/jobs"
+          : "/ml-ds/job-agent/admin/jobs"
+      );
     router.refresh();
   }
 

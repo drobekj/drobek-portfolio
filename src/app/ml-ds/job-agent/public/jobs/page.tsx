@@ -3,7 +3,7 @@ import { getJobSummaries } from "@/lib/jobs/jobRepository";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import Link from "next/link";
 
-export default function AdminJobsPage() {
+export default function PublicJobsPage() {
   const jobs = getJobSummaries();
 
   return (
@@ -12,7 +12,7 @@ export default function AdminJobsPage() {
         items={[
           { href: "/ml-ds", label: "ML/DS" },
           { href: "/ml-ds/job_agent", label: "AI Job Agent" },
-          { href: "/ml-ds/job-agent/admin/jobs", label: "Job Dashboard" }
+          { href: "/ml-ds/job-agent/public/jobs", label: "Job Dashboard" },
         ]}
       />
       <div className="shrink-0 bg-white pb-1">
@@ -23,20 +23,23 @@ export default function AdminJobsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-gray-500">
-              Admin access to evaluated job opportunities.
+              Read-only overview of evaluated job opportunities.
             </p>
-
           </div>
           <Link
-            href="/ml-ds/job-agent/public/jobs"
-            className="rounded-xl border bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            href="/ml-ds/job-agent/admin/jobs"
+            className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:opacity-90"
           >
-            Public
-          </Link>
+            Admin
+          </Link>          
         </div>
       </div>
 
-      <AdminJobsClient jobs={jobs} positionsCount={jobs.length} />
+      <AdminJobsClient
+  jobs={jobs}
+  positionsCount={jobs.length}
+  readOnly
+/>
     </div>
   );
 }

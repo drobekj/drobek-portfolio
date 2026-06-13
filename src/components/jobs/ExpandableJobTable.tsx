@@ -9,8 +9,8 @@ type Props = {
   jobs: JobSummary[];
   selectedIds: Set<number>;
   setSelectedIds: React.Dispatch<React.SetStateAction<Set<number>>>;
+  readOnly?: boolean;
 };
-
 
 function jobRowId(url: string) {
   return `job-${encodeURIComponent(url)}`;
@@ -24,6 +24,7 @@ export default function ExpandableJobTable({
   jobs,
   selectedIds,
   setSelectedIds,
+  readOnly = false,
 }: Props) {
   const router = useRouter();
   const [openId, setOpenId] = useState<number | null>(null);
@@ -239,6 +240,9 @@ async function handleStatusChange(status: string) {
 }
 
   async function markAsSeen(id: number) {
+    if (readOnly) {
+      return;
+    }
     try {
       const response = await fetch("/api/job-agent/status", {
         method: "POST",
@@ -324,6 +328,9 @@ if (targetUrl) {
 }, [jobs]);
 
 async function savePrivateNote(id: number) {
+  if (readOnly) {
+    return;
+  }
   setSavingNoteIds((current) => new Set(current).add(id));
 
   const response = await fetch("/api/job-agent/private-note", {
@@ -352,7 +359,7 @@ async function savePrivateNote(id: number) {
     next.add(id);
     return next;
   });
-  
+
   setSavedNoteIds((current) => new Set(current).add(id));
 }
 
@@ -365,7 +372,7 @@ async function savePrivateNote(id: number) {
               <input
                 type="checkbox"
                 checked={hasSelection}
-                disabled={!hasVisibleJobs}
+                disabled={readOnly || !hasVisibleJobs}
                 onChange={toggleAllVisible}
                 className="h-4 w-4 cursor-pointer"
                 aria-label="Select all visible jobs"
@@ -394,7 +401,7 @@ async function savePrivateNote(id: number) {
                   id={jobRowIdById(job.id)}
                   onClick={() => handleRowClick(job.id)}
                   className={`scroll-mt-12 cursor-pointer border-b border-gray-100 job-row ${
-                    highlightedRowIds.has(job.id)
+                   !readOnly && highlightedRowIds.has(job.id)
                       ? "bg-yellow-50 hover:bg-yellow-100"
                       : "hover:bg-gray-50"
                   } ${
@@ -406,8 +413,9 @@ async function savePrivateNote(id: number) {
                       checked={isSelected}
                       onChange={() => toggleSelected(job.id)}
                       onClick={(event) => event.stopPropagation()}
-                      className="h-4 w-4 cursor-pointer"
+                      className={`h-4 w-4 ${readOnly ? "cursor-default opacity-50" : "cursor-pointer"}`}
                       aria-label={`Select job ${job.id}`}
+                      disabled={readOnly}
                     />
                   </td>
 
@@ -469,7 +477,11 @@ async function savePrivateNote(id: number) {
 
                         <div>
                           <Link
-                            href={`/ml-ds/job-agent/admin/jobs/${job.id}`}
+                            href={
+                              readOnly
+                                ? `/ml-ds/job-agent/public/jobs/${job.id}`
+                                : `/ml-ds/job-agent/admin/jobs/${job.id}`
+                            }
                             className="font-medium underline"
                             onClick={(event) => event.stopPropagation()}
                           >
@@ -480,6 +492,7 @@ async function savePrivateNote(id: number) {
                         <div className="flex items-center gap-2">
                           <span className="shrink-0 text-gray-500">Private note:</span>
 <textarea
+  disabled={readOnly}
   value={privateNotes[job.id] ?? job.privateNote ?? ""}
   onChange={(e) => {
     setInactiveNoteIds((current) => {
@@ -501,20 +514,28 @@ async function savePrivateNote(id: number) {
     });
   }}
   rows={1}
-  className={`flex-1 rounded border px-3 py-2 ${
-    inactiveNoteIds.has(job.id) ? "text-gray-400" : "text-gray-900"
-  }`}
+className={`flex-1 rounded border px-3 py-2 ${
+  readOnly
+    ? "cursor-default bg-gray-50 text-gray-400"
+    : inactiveNoteIds.has(job.id)
+    ? "text-gray-400"
+    : "text-gray-900"
+}`}
 />
-                            <button
-                              type="button"
-                              onClick={() => savePrivateNote(job.id)}
-                              disabled={savingNoteIds.has(job.id)}
-                              className={`rounded bg-blue-100 px-4 py-2 text-sm font-semibold transition active:translate-y-px active:scale-95 hover:bg-blue-200 ${
-                                savingNoteIds.has(job.id) ? "opacity-60" : ""
-                              }`}
-                            >
-                              Save
-                            </button>
+<button
+  type="button"
+  onClick={() => savePrivateNote(job.id)}
+  disabled={readOnly || savingNoteIds.has(job.id)}
+  className={`rounded px-4 py-2 text-sm font-semibold transition active:translate-y-px active:scale-95 ${
+    readOnly
+      ? "cursor-default bg-gray-50 opacity-50"
+      : `bg-blue-100 hover:bg-blue-200 ${
+          savingNoteIds.has(job.id) ? "opacity-60" : ""
+        }`
+  }`}
+>
+  Save
+</button>
                         </div>
                       </div>
 

@@ -84,8 +84,8 @@
         },
         {
           "id": "job_agent_admin_dashboard",
-          "title": "Internal Admin Dashboard",
-          "pdfPath": "/ml-ds/job-agent/admin/jobs",
+          "title": "Job Dashboard",
+          "pdfPath": "/ml-ds/job-agent/public/jobs",
           "type": "external",
           "year": 2026,
           "level": "Private dashboard",

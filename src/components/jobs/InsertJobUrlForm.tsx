@@ -8,11 +8,13 @@ export default function InsertJobUrlForm({
   selectedIds,
   clearSelection,
   setToolbarMessage,
+  readOnly = false,
 }: {
   hasSelection: boolean;
   selectedIds: number[];
   clearSelection: () => void;
   setToolbarMessage: (message: string) => void;
+  readOnly?: boolean;
 }) {
   const router = useRouter();
 
@@ -121,13 +123,13 @@ export default function InsertJobUrlForm({
   return (
     <div className="flex min-w-0 items-center gap-2">      
         <button
-  disabled={busyMode !== null}
+  disabled={readOnly || busyMode !== null}
   onClick={() => run("prepare")}
   className={`flex w-[92px] shrink-0 items-center justify-center gap-2 rounded px-4 py-2 text-sm font-semibold text-black transition-colors disabled:opacity-50 ${
-    url.trim()
-      ? "bg-blue-100 hover:bg-blue-200"
-      : "bg-gray-50 opacity-50 hover:bg-gray-100"
-  }`}
+!readOnly && (hasSelection || url.trim())
+  ? "bg-blue-100 hover:bg-blue-200"
+  : "bg-gray-50 opacity-50 hover:bg-gray-100"
+    }`}
 >
   {busyMode === "prepare" && (
     <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
@@ -136,13 +138,13 @@ export default function InsertJobUrlForm({
 </button>
 
         <button
-  disabled={busyMode !== null}
+  disabled={readOnly || busyMode !== null}
   onClick={() => run("evaluate")}
   className={`flex w-[92px] shrink-0 items-center justify-center gap-2 rounded px-4 py-2 text-sm font-semibold text-black transition-colors disabled:opacity-50 ${
-    hasSelection || url.trim()
-      ? "bg-blue-100 hover:bg-blue-200"
-      : "bg-gray-50 opacity-50 hover:bg-gray-100"
-  }`}
+!readOnly && (hasSelection || url.trim())
+  ? "bg-blue-100 hover:bg-blue-200"
+  : "bg-gray-50 opacity-50 hover:bg-gray-100"
+    }`}
 >
   {busyMode === "evaluate" && (
     <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
@@ -152,7 +154,7 @@ export default function InsertJobUrlForm({
         <input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          disabled={busyMode !== null}
+          disabled={readOnly || busyMode !== null}
           placeholder="Insert URL"
           className="min-w-0 flex-1 rounded border px-3 py-2 text-sm disabled:bg-gray-100"
         />
