@@ -10,6 +10,7 @@ type Props = {
   selectedIds: Set<number>;
   setSelectedIds: React.Dispatch<React.SetStateAction<Set<number>>>;
   readOnly?: boolean;
+  selectionMuted?: boolean;
 };
 
 function jobRowId(url: string) {
@@ -25,6 +26,7 @@ export default function ExpandableJobTable({
   selectedIds,
   setSelectedIds,
   readOnly = false,
+  selectionMuted = false,
 }: Props) {
   const router = useRouter();
   const [openId, setOpenId] = useState<number | null>(null);
@@ -372,7 +374,7 @@ async function savePrivateNote(id: number) {
               <input
                 type="checkbox"
                 checked={hasSelection}
-                disabled={readOnly || !hasVisibleJobs}
+                disabled={readOnly || selectionMuted || !hasVisibleJobs}
                 onChange={toggleAllVisible}
                 className="h-4 w-4 cursor-pointer"
                 aria-label="Select all visible jobs"
@@ -413,9 +415,13 @@ async function savePrivateNote(id: number) {
                       checked={isSelected}
                       onChange={() => toggleSelected(job.id)}
                       onClick={(event) => event.stopPropagation()}
-                      className={`h-4 w-4 ${readOnly ? "cursor-default opacity-50" : "cursor-pointer"}`}
+className={`h-4 w-4 ${
+  readOnly || selectionMuted
+    ? "cursor-default opacity-40"
+    : "cursor-pointer"
+}`}
                       aria-label={`Select job ${job.id}`}
-                      disabled={readOnly}
+                      disabled={readOnly || selectionMuted}
                     />
                   </td>
 
