@@ -3,6 +3,8 @@ import { getJobSummaries } from "@/lib/jobs/jobRepository";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default function PublicJobsPage() {
   const jobs = getJobSummaries();
 
