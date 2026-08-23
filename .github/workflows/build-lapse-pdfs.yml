@@ -1,0 +1,56 @@
+name: Build lapse case study PDFs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.tmp/lapse-pdf-build/**'
+      - '.github/workflows/build-lapse-pdfs.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '[skip pdf-build]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install plotting and LaTeX dependencies
+        run: |
+          python -m pip install --quiet matplotlib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-lang-czechslovak cm-super ghostscript
+
+      - name: Generate vector figures and compile documents
+        run: |
+          cd .tmp/lapse-pdf-build
+          python make_figures.py
+          for doc in life_insurance_lapse_rate_modelling_case_study_en life_insurance_lapse_rate_modelling_case_study_cz; do
+            pdflatex -interaction=nonstopmode -halt-on-error "$doc.tex"
+            pdflatex -interaction=nonstopmode -halt-on-error "$doc.tex"
+          done
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH -dSubsetFonts=true -dEmbedAllFonts=true \
+            -sOutputFile=../../public/pdfs/ml-ds/life_insurance_lapse_rate_modelling_case_study_en.pdf \
+            life_insurance_lapse_rate_modelling_case_study_en.pdf
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH -dSubsetFonts=true -dEmbedAllFonts=true \
+            -sOutputFile=../../public/pdfs/ml-ds/life_insurance_lapse_rate_modelling_case_study_cz.pdf \
+            life_insurance_lapse_rate_modelling_case_study_cz.pdf
+
+      - name: Commit generated PDFs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/pdfs/ml-ds/life_insurance_lapse_rate_modelling_case_study_en.pdf
+          git add public/pdfs/ml-ds/life_insurance_lapse_rate_modelling_case_study_cz.pdf
+          if git diff --cached --quiet; then
+            echo "No PDF changes to commit"
+          else
+            git commit -m "Add lapse case study PDFs [skip pdf-build]"
+            git push
+          fi
