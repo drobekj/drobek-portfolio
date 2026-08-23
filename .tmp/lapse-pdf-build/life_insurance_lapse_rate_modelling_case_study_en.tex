@@ -1,0 +1,355 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[czech,english]{babel}
+\selectlanguage{english}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage[a4paper,margin=2.7cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\lstdefinestyle{py}{language=Python,basicstyle=\ttfamily\small,keywordstyle=\color{blue!70!black},commentstyle=\color{green!40!black},stringstyle=\color{red!50!black},showstringspaces=false,breaklines=true,frame=single,rulecolor=\color{black!20}}
+
+\title{\vspace{-1cm}\textbf{Life Insurance Lapse Rate Modelling}\\\large Poisson GLM with Temporal Validation and Final Holdout}
+\author{Jaroslav Drobek}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This case study develops an interpretable actuarial model of life-insurance lapse behaviour using the Society of Actuaries 2014 Post-Level Term Lapse and Mortality Study. Lapse counts are modelled with a Poisson generalized linear model and policy-count exposure as an offset. Model development follows an expanding-window temporal validation design and preserves the final study year as an untouched holdout. The fitted GLM reduces mean Poisson deviance by 66.7\% against a portfolio-rate baseline across validation folds and by 79.4\% on the final 2011--2012 holdout. The dominant effects are policy duration and the premium increase after the level-premium period. The principal limitation is not relative predictive performance but a gradual drift of absolute calibration toward underprediction in later study years.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Problem statement}
+Life-insurance lapse modelling asks how the probability or intensity of policy termination varies across product, policyholder, and contract characteristics. In post-level term business, the problem is particularly important because the end of the guaranteed level-premium period may produce a sharp premium increase and a corresponding lapse shock.
+
+The objective of this project is to construct a transparent predictive model that can:
+\begin{enumerate}
+\item quantify lapse intensity while respecting policy-count exposure,
+\item remain interpretable through multiplicative rate relativities,
+\item demonstrate out-of-time predictive performance,
+\item separate relative model performance from absolute calibration,
+\item support practical monitoring and recalibration decisions.
+\end{enumerate}
+
+The public project repository is available at \url{https://github.com/drobekj/life-insurance-lapse-rate-modelling}.
+
+\section{Data}
+\subsection{Source and structure}
+The analysis uses the lapse component of the \textit{Society of Actuaries 2014 Post-Level Term Lapse and Mortality Study}. The official study page is \url{https://www.soa.org/resources/experience-studies/2014/research-2014-post-level-shock/}.
+
+The local modelling dataset was reconstructed from the Excel Pivot Cache contained in the study materials. Each row represents an aggregated risk cell rather than an individual policy.
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Quantity & Value \\
+\midrule
+Source risk cells & 345,627 \\
+Variables & 17 \\
+Positive-exposure modelling cells & 344,725 \\
+Policy-count exposure & approximately 6.73 million policy-years \\
+Observed lapses & approximately 1.01 million \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The reconstructed CSV is not redistributed in the public repository. Instead, the repository documents the source and the expected local filename required to reproduce the notebook workflow.
+
+\subsection{Development and holdout periods}
+The temporal design is explicit:
+\begin{itemize}
+\item development period: study years 2000--2001 through 2010--2011,
+\item final untouched holdout: study year 2011--2012,
+\item temporal validation: eight expanding-window folds, each predicting one future study year.
+\end{itemize}
+
+This design prevents information from future study years from leaking into earlier validation folds and is therefore more informative than a random train/test split for a portfolio whose level can drift over calendar time.
+
+\section{Exploratory analysis}
+\subsection{Duration effect}
+The strongest portfolio-level pattern is the lapse shock around the end of the level-premium period. In the development sample, the lapse rate rises from approximately 6.7\% at durations 6--9 to 58.3\% at duration 10, then declines in subsequent durations.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{figures/01_lapse_rate_by_duration.pdf}
+\caption{Development-sample lapse rate by policy duration}
+\end{figure}
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Duration & Exposure & Lapse rate \\
+\midrule
+6--9 & 4,399,410 & 6.65\% \\
+10 & 750,728 & 58.26\% \\
+11 & 281,546 & 29.60\% \\
+12 & 176,855 & 11.24\% \\
+13+ & 442,915 & 7.00\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Premium-jump effect at duration 10}
+The premium increase from duration 10 to duration 11 is another major driver. At duration 10, the observed lapse rate is about 16.3\% for a premium ratio between 1.01 and 2.00, rises above 50\% for ratios above 3, and exceeds 80\% across many of the larger premium-jump bands.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/02_duration10_lapse_rate_by_premium_jump.pdf}
+\caption{Observed duration-10 lapse rate by premium-jump band}
+\end{figure}
+
+The tail of the premium-jump distribution contains relatively small exposures, so very high observed rates in the largest bands should not be interpreted as a perfectly monotone structural relationship. Exposure size and category stability remain important when translating exploratory patterns into a production specification.
+
+\section{Model specification}
+\subsection{Poisson GLM with exposure offset}
+For risk cell $i$, let $L_i$ denote observed lapse count and $E_i$ policy-count exposure. The model is
+\[
+L_i \mid X_i \sim \operatorname{Poisson}(E_i\lambda_i),
+\]
+with log link and exposure offset
+\[
+\log \E[L_i\mid X_i] = \log E_i + \beta_0 + X_i^\top\beta.
+\]
+
+The exposure term is fixed as an offset rather than estimated as a free coefficient. Consequently, the model targets lapse rate while correctly weighting cells according to the amount of exposure they represent.
+
+For a categorical coefficient $\beta_j$, the quantity $\exp(\beta_j)$ is interpreted as a multiplicative rate relativity against the reference category, holding the remaining model factors constant.
+
+\subsection{Final predictors}
+The final specification uses eight categorical predictors:
+\begin{itemize}
+\item \texttt{DURATION},
+\item \texttt{GENDER},
+\item \texttt{ISSUE\_AGE\_GROUP},
+\item \texttt{FACE\_AMOUNT\_BAND},
+\item \texttt{POST\_LEVEL\_PREMIUM\_STRUCTURE},
+\item \texttt{PREM\_JUMP\_D11\_D10},
+\item \texttt{RISK\_CLASS},
+\item \texttt{PREMIUM\_MODE}.
+\end{itemize}
+
+\texttt{ISSUE\_YEAR\_GROUP} was intentionally removed from the final specification. New issue cohorts can emerge in later study years and can first appear with material exposure in future folds. Keeping this variable would therefore make the model unnecessarily dependent on categories that are structurally unavailable in earlier training windows.
+
+Categorical variables are one-hot encoded using explicit reference categories. Residual unseen levels are handled with \texttt{handle\_unknown="ignore"}; such cases are monitored because encoding an unseen level as all zeros effectively maps it to the reference pattern for that predictor.
+
+\section{Temporal validation}
+\subsection{Expanding-window design}
+The validation is performed on eight consecutive future study years from 2003--2004 through 2010--2011. For each fold, the training sample contains only years preceding the validation year. The benchmark is a simple portfolio-rate model estimated on the corresponding training window.
+
+Performance is measured by mean Poisson deviance. Relative improvement is defined as
+\[
+\text{Improvement} = 1 - \frac{D_{\mathrm{GLM}}}{D_{\mathrm{baseline}}}.
+\]
+All eight GLM fits converged.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Expanding-window validation results}
+\begin{tabular}{lrrr}
+\toprule
+Validation year & Baseline deviance & GLM deviance & Improvement \\
+\midrule
+2003--2004 & 2.053 & 1.062 & 48.3\% \\
+2004--2005 & 2.312 & 1.130 & 51.1\% \\
+2005--2006 & 3.002 & 1.264 & 57.9\% \\
+2006--2007 & 5.049 & 1.419 & 71.9\% \\
+2007--2008 & 5.387 & 1.413 & 73.8\% \\
+2008--2009 & 5.783 & 1.338 & 76.9\% \\
+2009--2010 & 5.159 & 1.231 & 76.1\% \\
+2010--2011 & 4.939 & 1.117 & 77.4\% \\
+\midrule
+Mean & 4.210 & 1.247 & 66.7\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/03_temporal_validation_deviance.pdf}
+\caption{Poisson deviance across out-of-time validation folds}
+\end{figure}
+
+The key finding is not only that the GLM wins on average, but that it outperforms the baseline in every future validation year. Relative predictive value is therefore stable across materially different portfolio-rate environments.
+
+\section{Calibration}
+Predictive discrimination and calibration are related but distinct. A model can correctly rank relative lapse risk while gradually missing the aggregate portfolio level.
+
+Across pooled out-of-fold predictions, the observed lapse rate is 14.63\%, compared with a GLM prediction of 14.11\%. This corresponds to an Actual/Predicted ratio of 1.037 and an aggregate calibration error of +0.52 percentage points.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/04_temporal_validation_calibration.pdf}
+\caption{Actual, GLM-predicted, and baseline lapse rates by validation year}
+\end{figure}
+
+The pattern changes over time. Early validation years are mildly overpredicted; later years move toward underprediction. For example, in 2010--2011 the observed portfolio lapse rate is 19.48\%, while the GLM predicts 17.80\%. The baseline is substantially lower at 13.47\%.
+
+This distinction is operationally important. A stable improvement in deviance combined with an aggregate level shift suggests that simple recalibration of the intercept may be considered before a full redevelopment of the risk structure.
+
+\section{Model interpretation}
+\subsection{Duration relativities}
+Policy duration is the dominant fitted driver. Relative to durations 6--9, the estimated rate relativities are:
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Effect & Coefficient & Rate relativity \\
+\midrule
+Duration 10 & 2.162 & 8.69$\times$ \\
+Duration 11 & 1.749 & 5.75$\times$ \\
+Duration 12 & 0.908 & 2.48$\times$ \\
+Duration 13+ & 0.572 & 1.77$\times$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These fitted effects are smaller than the raw duration-10 ratio visible in the exploratory analysis because the GLM simultaneously controls for premium jump, premium structure, risk class, issue age, premium mode, and other factors.
+
+\subsection{Other selected effects}
+The premium-jump variable remains a strong conditional driver. Relative to the 1.01--2.00 reference band, fitted relativities rise to approximately 1.55--1.61$\times$ around the 5.01--8.00 range and then become less monotone in the thin tail.
+
+The post-level premium structure is also material: \textit{Premium Jump to Other} has a fitted relativity of about 0.56$\times$ relative to \textit{Premium Jump to ART}. Premium mode has a smaller but visible effect; monthly mode is approximately 0.84$\times$ and biweekly mode approximately 0.71$\times$ relative to annual mode, holding the remaining factors constant.
+
+Gender, issue age, face amount, and risk class contribute additional segmentation, but their fitted effects are weaker than the duration and premium-jump structure.
+
+\section{Final holdout evaluation}
+After model development, the preprocessing encoder and Poisson GLM are refitted on all development years and evaluated once on the reserved 2011--2012 holdout.
+
+\begin{itemize}
+\item development fit: 298,396 risk cells,
+\item holdout: 46,329 risk cells.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Final holdout results, 2011--2012}
+\begin{tabular}{lr}
+\toprule
+Metric & Value \\
+\midrule
+Baseline Poisson deviance & 5.370 \\
+GLM Poisson deviance & 1.106 \\
+Improvement vs baseline & 79.4\% \\
+Actual lapse rate & 21.32\% \\
+GLM predicted lapse rate & 20.06\% \\
+Actual / Predicted & 1.063 \\
+Calibration error & +1.26 p.p. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The holdout confirms the central validation result: relative predictive performance remains strong in a future period. At the same time, absolute underprediction increases, which is consistent with the calibration trend already visible in the later validation folds.
+
+\section{Practical interpretation and monitoring}
+The model is particularly suitable as an actuarial portfolio model because it combines a transparent multiplicative structure with explicit exposure handling. In a production setting, the following diagnostics should be monitored regularly:
+\begin{itemize}
+\item aggregate Actual/Predicted ratio,
+\item calibration error in percentage points,
+\item Poisson deviance relative to a simple current-period baseline,
+\item stability of key duration and premium-jump effects,
+\item exposure mix and emergence of previously unseen categories.
+\end{itemize}
+
+A deterioration of deviance would indicate weakening risk differentiation and could motivate redevelopment. By contrast, a mostly stable deviance advantage accompanied by a uniform level shift would first motivate recalibration, for example through an updated intercept.
+
+\section{Limitations}
+The study has several important limitations:
+\begin{enumerate}
+\item data are aggregated risk cells rather than individual policies;
+\item the Poisson model imposes the standard mean--variance relationship at the count level;
+\item categorical effects are fixed and log-additive, without explicit interactions;
+\item future categorical levels may emerge even with a carefully chosen specification;
+\item the SOA study is historical and should not be treated as a proxy for a current production portfolio;
+\item temporal calibration drift demonstrates that even a stable relative model requires monitoring of the aggregate level.
+\end{enumerate}
+
+These limitations do not invalidate the case study. They define the boundary between a transparent portfolio modelling exercise and a production model that would require current company-specific data, governance, monitoring, and potentially richer interaction structures.
+
+\section{Conclusion}
+The project demonstrates an end-to-end actuarial modelling workflow:
+\[
+\text{data reconstruction} \to \text{EDA} \to \text{Poisson GLM} \to \text{temporal validation} \to \text{interpretation} \to \text{holdout}.
+\]
+
+The Poisson GLM provides a strong balance between predictive performance and interpretability. Across eight expanding-window validation folds, mean deviance falls from 4.210 for the baseline to 1.247 for the GLM, an average improvement of 66.7\%. On the untouched 2011--2012 holdout, the improvement reaches 79.4\%.
+
+The main modelling insight is that policy duration and premium-jump mechanics dominate lapse behaviour around the end of the guaranteed level-premium period. The main validation insight is equally important: relative performance remains strong while absolute calibration gradually drifts toward underprediction. In applied actuarial work, those two dimensions should be monitored separately.
+
+\newpage
+\appendix
+\section{Appendix: final predictor set}
+\begin{lstlisting}[style=py,caption={Final categorical predictor set}]
+predictors = [
+    "DURATION",
+    "GENDER",
+    "ISSUE_AGE_GROUP",
+    "FACE_AMOUNT_BAND",
+    "POST_LEVEL_PREMIUM_STRUCTURE",
+    "PREM_JUMP_D11_D10",
+    "RISK_CLASS",
+    "PREMIUM_MODE",
+]
+\end{lstlisting}
+
+\section{Appendix: model skeleton}
+\begin{lstlisting}[style=py,caption={Poisson GLM with policy-count exposure offset}]
+encoder = OneHotEncoder(
+    drop=[reference_categories[col] for col in predictors],
+    handle_unknown="ignore",
+    sparse_output=False,
+)
+
+X_train_enc = encoder.fit_transform(train[predictors])
+X_valid_enc = encoder.transform(valid[predictors])
+
+X_train_glm = sm.add_constant(X_train_enc, has_constant="add")
+X_valid_glm = sm.add_constant(X_valid_enc, has_constant="add")
+
+model = sm.GLM(
+    train["LAPSE_CNT"],
+    X_train_glm,
+    family=sm.families.Poisson(),
+    offset=np.log(train["EXPOSURE_CNT"]),
+)
+
+result = model.fit()
+pred_lapses = result.predict(
+    X_valid_glm,
+    offset=np.log(valid["EXPOSURE_CNT"]),
+)
+\end{lstlisting}
+
+\section{Appendix: reproducibility}
+The public repository contains the clean notebook, exact result tables, figures, requirements, and source-data documentation. To reproduce the workflow locally, place \texttt{soa\_post\_level\_term\_lapse.csv} in the repository root and run \texttt{life\_insurance\_lapse\_rate\_modelling\_clean.ipynb} in an environment containing pandas, NumPy, statsmodels, scikit-learn, and Matplotlib.
+
+\end{document}
