@@ -128,7 +128,7 @@ export function getJobDetail(id: number): JobDetail | null {
       LIMIT 1
       `
     )
-    .get(id);
+    .get(id) as { markdown_report: string | null } | undefined;
 
   db.close();
 
