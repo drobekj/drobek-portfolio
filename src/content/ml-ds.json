@@ -74,6 +74,24 @@
       "description": "Actuarial machine learning case study of post-level term lapse rates using an interpretable Poisson GLM, expanding-window temporal validation, and an untouched final holdout.",
       "items": [
         {
+          "id": "life_insurance_lapse_rate_modelling_pdf_cz",
+          "title": "Case Study PDF",
+          "pdfPath": "/pdfs/ml-ds/life_insurance_lapse_rate_modelling_case_study_cz.pdf",
+          "type": "pdf",
+          "year": 2026,
+          "level": "Portfolio case study",
+          "tags": ["PDF", "CZ", "Insurance"]
+        },
+        {
+          "id": "life_insurance_lapse_rate_modelling_pdf_en",
+          "title": "Case Study PDF (EN)",
+          "pdfPath": "/pdfs/ml-ds/life_insurance_lapse_rate_modelling_case_study_en.pdf",
+          "type": "pdf",
+          "year": 2026,
+          "level": "Portfolio case study",
+          "tags": ["PDF", "EN", "Insurance"]
+        },
+        {
           "id": "life_insurance_lapse_rate_modelling_github",
           "title": "GitHub Repository",
           "pdfPath": "https://github.com/drobekj/life-insurance-lapse-rate-modelling",
