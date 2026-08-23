@@ -69,6 +69,22 @@
       ]
     },
     {
+      "slug": "life_insurance_lapse_rate_modelling",
+      "title": "Life Insurance Lapse Rate Modelling",
+      "description": "Actuarial machine learning case study of post-level term lapse rates using an interpretable Poisson GLM, expanding-window temporal validation, and an untouched final holdout.",
+      "items": [
+        {
+          "id": "life_insurance_lapse_rate_modelling_github",
+          "title": "GitHub Repository",
+          "pdfPath": "https://github.com/drobekj/life-insurance-lapse-rate-modelling",
+          "type": "external",
+          "year": 2026,
+          "level": "Repository",
+          "tags": ["GitHub", "Poisson GLM", "Actuarial", "Temporal Validation"]
+        }
+      ]
+    },
+    {
       "slug": "job_agent",
       "title": "AI Job Agent",
       "description": "Internal job-search intelligence system combining URL ingestion, LLM-based evaluation, deterministic scoring, and review workflow management.",

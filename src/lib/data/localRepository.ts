@@ -40,6 +40,9 @@ const INSURANCE_TOPIC_ORDER = [
 
 const ML_DS_TOPIC_ORDER = [
   "investment_portfolio_analysis",
+  "insurance_frequency_modeling",
+  "life_insurance_lapse_rate_modelling",
+  "job_agent",
 ] as const;
 
 const ssTopicOrderIndex = new Map<string, number>(
