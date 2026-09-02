@@ -9,6 +9,7 @@ export default async function sitemap() {
     "/vs",
     "/research",
     "/insurance",
+    "/applications",
     "/ml-ds",
     "/search",
   ];
@@ -18,7 +19,12 @@ export default async function sitemap() {
     lastModified: new Date(),
   }));
 
-  const sections: ("ss" | "vs" | "ml-ds")[] = ["ss", "vs", "ml-ds"];
+  const sections: ("ss" | "vs" | "ml-ds" | "applications")[] = [
+    "ss",
+    "vs",
+    "ml-ds",
+    "applications",
+  ];
 
   for (const section of sections) {
     const catalog = await repo.getCatalog(section);

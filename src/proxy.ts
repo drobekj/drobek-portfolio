@@ -47,6 +47,7 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
   "/ml-ds/job-agent/admin/:path*",
+  "/applications/job-agent/admin/:path*",
   "/api/job-agent/:path*",
 ],
 };

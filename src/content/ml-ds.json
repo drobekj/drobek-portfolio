@@ -12,7 +12,11 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": ["PDF", "CZ", "ML/DS"]
+          "tags": [
+            "PDF",
+            "CZ",
+            "ML/DS"
+          ]
         },
         {
           "id": "investment_portfolio_analysis_pdf_en",
@@ -21,7 +25,11 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": ["PDF", "EN", "ML/DS"]
+          "tags": [
+            "PDF",
+            "EN",
+            "ML/DS"
+          ]
         },
         {
           "id": "investment_portfolio_analysis_github",
@@ -30,7 +38,13 @@
           "type": "external",
           "year": 2026,
           "level": "Repository",
-          "tags": ["GitHub", "Python", "Quant Finance", "TWR", "IRR"]
+          "tags": [
+            "GitHub",
+            "Python",
+            "Quant Finance",
+            "TWR",
+            "IRR"
+          ]
         }
       ]
     },
@@ -46,7 +60,11 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": ["PDF", "CZ", "Insurance"]
+          "tags": [
+            "PDF",
+            "CZ",
+            "Insurance"
+          ]
         },
         {
           "id": "insurance_frequency_modeling_pdf_en",
@@ -55,7 +73,11 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": ["PDF", "EN", "Insurance"]
+          "tags": [
+            "PDF",
+            "EN",
+            "Insurance"
+          ]
         },
         {
           "id": "insurance_frequency_modeling_github",
@@ -64,7 +86,12 @@
           "type": "external",
           "year": 2026,
           "level": "Repository",
-          "tags": ["GitHub", "XGBoost", "GLM", "SHAP"]
+          "tags": [
+            "GitHub",
+            "XGBoost",
+            "GLM",
+            "SHAP"
+          ]
         }
       ]
     },
@@ -80,7 +107,11 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": ["PDF", "CZ", "Insurance"]
+          "tags": [
+            "PDF",
+            "CZ",
+            "Insurance"
+          ]
         },
         {
           "id": "life_insurance_lapse_rate_modelling_pdf_en",
@@ -89,7 +120,11 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": ["PDF", "EN", "Insurance"]
+          "tags": [
+            "PDF",
+            "EN",
+            "Insurance"
+          ]
         },
         {
           "id": "life_insurance_lapse_rate_modelling_github",
@@ -98,32 +133,12 @@
           "type": "external",
           "year": 2026,
           "level": "Repository",
-          "tags": ["GitHub", "Poisson GLM", "Actuarial", "Temporal Validation"]
-        }
-      ]
-    },
-    {
-      "slug": "job_agent",
-      "title": "AI Job Agent",
-      "description": "Internal job-search intelligence system combining URL ingestion, LLM-based evaluation, deterministic scoring, and review workflow management.",
-      "items": [
-        {
-          "id": "job_agent_public_overview",
-          "title": "Public Project Overview",
-          "pdfPath": "#",
-          "type": "external",
-          "year": 2026,
-          "level": "Portfolio case study",
-          "tags": ["AI", "LLM", "Python", "Scoring"]
-        },
-        {
-          "id": "job_agent_admin_dashboard",
-          "title": "Job Dashboard",
-          "pdfPath": "/ml-ds/job-agent/public/jobs",
-          "type": "external",
-          "year": 2026,
-          "level": "Private dashboard",
-          "tags": ["Admin", "SQLite", "Workflow", "Jobs"]
+          "tags": [
+            "GitHub",
+            "Poisson GLM",
+            "Actuarial",
+            "Temporal Validation"
+          ]
         }
       ]
     }

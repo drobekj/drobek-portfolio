@@ -31,8 +31,8 @@ export function BackToJobsButton({
 
     router.push(
       mode === "public"
-          ? "/ml-ds/job-agent/public/jobs"
-          : "/ml-ds/job-agent/admin/jobs"
+          ? "/applications/job-agent/public/jobs"
+          : "/applications/job-agent/admin/jobs"
       );
     router.refresh();
   }

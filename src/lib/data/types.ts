@@ -41,4 +41,4 @@ export type Catalog = {
   topics: Topic[];
 };
 
-export type SectionKey = "ss" | "vs" | "research" | "insurance" | "ml-ds";
+export type SectionKey = "ss" | "vs" | "research" | "insurance" | "ml-ds" | "applications";

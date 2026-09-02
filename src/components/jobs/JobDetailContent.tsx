@@ -21,20 +21,20 @@ export default function JobDetailContent({
     <div>
         <Breadcrumbs
         items={[
-            { href: "/ml-ds", label: "ML/DS" },
-            { href: "/ml-ds/job_agent", label: "AI Job Agent" },
+            { href: "/applications", label: "Applications" },
+            { href: "/applications/job_agent", label: "AI Job Agent" },
             {
             href:
                 mode === "public"
-                ? "/ml-ds/job-agent/public/jobs"
-                : "/ml-ds/job-agent/admin/jobs",
+                ? "/applications/job-agent/public/jobs"
+                : "/applications/job-agent/admin/jobs",
             label: "Job Dashboard",
             },
             {
             href:
                 mode === "public"
-                ? `/ml-ds/job-agent/public/jobs/${job.id}`
-                : `/ml-ds/job-agent/admin/jobs/${job.id}`,
+                ? `/applications/job-agent/public/jobs/${job.id}`
+                : `/applications/job-agent/admin/jobs/${job.id}`,
             label: job.title ?? `Job ${job.id}`,
             },
         ]}
@@ -108,10 +108,12 @@ export default function JobDetailContent({
             </a>
           </div>
 
-          <div className="md:col-span-2">
-            <span className="text-gray-500">Private note:</span>{" "}
-            {job.privateNote ?? ""}
-          </div>
+          {mode === "admin" ? (
+            <div className="md:col-span-2">
+              <span className="text-gray-500">Private note:</span>{" "}
+              {job.privateNote ?? ""}
+            </div>
+          ) : null}
         </div>
       </div>
 

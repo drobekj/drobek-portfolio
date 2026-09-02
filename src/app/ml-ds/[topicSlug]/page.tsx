@@ -149,7 +149,6 @@ export default async function MlDsTopicPage({
 
         {otherItems.map((item) => {
           const isInternalLink = item.pdfPath.startsWith("/");
-          const isJobAgentDashboard = item.id === "job_agent_admin_dashboard";
 
           return (
             <div
@@ -168,23 +167,7 @@ export default async function MlDsTopicPage({
                 </div>
               </div>
 
-              {isJobAgentDashboard ? (
-  <div className="inline-grid grid-cols-2 items-center justify-items-end gap-2">
-    <Link
-      href="/ml-ds/job-agent/public/jobs"
-      className="rounded-xl border bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-    >
-      Public
-    </Link>
-
-    <Link
-      href="/ml-ds/job-agent/admin/jobs"
-      className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:opacity-90"
-    >
-      Admin
-    </Link>
-  </div>
-) : isInternalLink ? (
+              {isInternalLink ? (
   <Link
     href={item.pdfPath}
     className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:opacity-90"

@@ -8,8 +8,9 @@ import vs from "@/content/vs.json";
 import insurance from "@/content/insurance.json";
 import research from "@/content/research.json";
 import mlDs from "@/content/ml-ds.json";
+import applications from "@/content/applications.json";
 
-type SectionKey = "ss" | "vs" | "insurance" | "research" | "ml-ds";
+type SectionKey = "ss" | "vs" | "insurance" | "research" | "ml-ds" | "applications";
 
 type SearchResult = {
   id: string;
@@ -37,6 +38,8 @@ function getSectionLabel(section: SectionKey) {
       return "Research";
     case "ml-ds":
       return "ML/DS";
+    case "applications":
+      return "Applications";
   }
 }
 
@@ -100,7 +103,10 @@ function buildIndex(): SearchResult[] {
     }
   };
 
-  const addMlDsCatalog = (catalog: any) => {
+  const addProjectCatalog = (
+    section: "ml-ds" | "applications",
+    catalog: any
+  ) => {
     for (const topic of catalog.topics ?? []) {
       const itemTags = (topic.items ?? []).flatMap((item: any) => item.tags ?? []);
       const itemTitles = (topic.items ?? []).map((item: any) => item.title).join(" ");
@@ -108,13 +114,13 @@ function buildIndex(): SearchResult[] {
       out.push({
         id: topic.slug,
         title: topic.title,
-        href: `/ml-ds/${topic.slug}`,
+        href: `/${section}/${topic.slug}`,
         tags: uniqueStrings(itemTags),
         summary: topic.description ?? topic.summary,
         level: itemTitles,
         topicTitle: topic.title,
-        section: "ml-ds",
-        sectionLabel: getSectionLabel("ml-ds"),
+        section,
+        sectionLabel: getSectionLabel(section),
       });
     }
   };
@@ -123,7 +129,8 @@ function buildIndex(): SearchResult[] {
   addStudyCatalog("vs", vs as any);
   addInsuranceCatalog(insurance as any);
   addResearchCatalog(research as any);
-  addMlDsCatalog(mlDs as any);
+  addProjectCatalog("ml-ds", mlDs as any);
+  addProjectCatalog("applications", applications as any);
 
   return out;
 }
