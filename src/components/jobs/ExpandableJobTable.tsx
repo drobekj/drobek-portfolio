@@ -537,8 +537,8 @@ className={`h-4 w-4 ${
 <Link
   href={
     readOnly
-      ? `/applications/job-agent/public/jobs/${job.id}`
-      : `/applications/job-agent/admin/jobs/${job.id}`
+      ? `/ml-ds/job-agent/public/jobs/${job.id}`
+      : `/ml-ds/job-agent/admin/jobs/${job.id}`
   }
   className="font-medium underline"
   onClick={(event) => {

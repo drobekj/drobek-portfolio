@@ -14,23 +14,21 @@ export default function AdminJobsPage() {
         items={[
           { href: "/applications", label: "Applications" },
           { href: "/applications/job_agent", label: "AI Job Agent" },
-          { href: "/applications/job-agent/admin/jobs", label: "Job Dashboard" }
+          { href: "/ml-ds/job-agent/admin/jobs", label: "Job Dashboard" },
         ]}
       />
+
       <div className="shrink-0 bg-white pb-1">
         <div className="flex items-center justify-between gap-6">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight">
-              Job Dashboard
-            </h1>
-
+            <h1 className="text-3xl font-semibold tracking-tight">Job Dashboard</h1>
             <p className="mt-2 text-sm text-gray-500">
               Admin access to evaluated job opportunities.
             </p>
-
           </div>
+
           <Link
-            href="/applications/job-agent/public/jobs"
+            href="/ml-ds/job-agent/public/jobs"
             className="rounded-xl border bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             Public

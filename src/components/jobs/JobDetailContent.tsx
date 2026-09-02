@@ -11,7 +11,17 @@ export default function JobDetailContent({
     id,
     mode = "admin",
     }: Props) {
-  const job = getJobDetail(id);
+  let job;
+
+  try {
+    job = getJobDetail(id);
+  } catch (error) {
+    if (mode === "public") {
+      notFound();
+    }
+
+    throw error;
+  }
 
   if (!job) {
     notFound();
@@ -26,15 +36,15 @@ export default function JobDetailContent({
             {
             href:
                 mode === "public"
-                ? "/applications/job-agent/public/jobs"
-                : "/applications/job-agent/admin/jobs",
+                ? "/ml-ds/job-agent/public/jobs"
+                : "/ml-ds/job-agent/admin/jobs",
             label: "Job Dashboard",
             },
             {
             href:
                 mode === "public"
-                ? `/applications/job-agent/public/jobs/${job.id}`
-                : `/applications/job-agent/admin/jobs/${job.id}`,
+                ? `/ml-ds/job-agent/public/jobs/${job.id}`
+                : `/ml-ds/job-agent/admin/jobs/${job.id}`,
             label: job.title ?? `Job ${job.id}`,
             },
         ]}
