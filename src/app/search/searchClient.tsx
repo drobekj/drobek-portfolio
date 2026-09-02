@@ -18,7 +18,7 @@ type SearchResult = {
   href: string;
   tags?: string[];
   type?: string;
-  year?: number;
+  year?: number | string;
   level?: string;
   summary?: string;
   topicTitle?: string;
@@ -60,7 +60,7 @@ type ResearchCatalog = {
     title: string;
     keywords?: string[];
     journal?: string;
-    year?: number;
+    year?: number | string;
     authors?: string;
     summary?: string;
     keyContribution?: string;
