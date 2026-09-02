@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 export const dynamic = "force-dynamic";
 
 export default function PublicJobsPage() {
-  let jobs;
+  let jobs: ReturnType<typeof getJobSummaries>;
 
   try {
     jobs = getJobSummaries().map((job) => ({ ...job, privateNote: null }));

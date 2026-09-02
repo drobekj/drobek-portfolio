@@ -12,11 +12,7 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": [
-            "PDF",
-            "CZ",
-            "ML/DS"
-          ]
+          "tags": ["PDF", "CZ", "ML/DS"]
         },
         {
           "id": "investment_portfolio_analysis_pdf_en",
@@ -25,11 +21,7 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": [
-            "PDF",
-            "EN",
-            "ML/DS"
-          ]
+          "tags": ["PDF", "EN", "ML/DS"]
         },
         {
           "id": "investment_portfolio_analysis_github",
@@ -38,13 +30,7 @@
           "type": "external",
           "year": 2026,
           "level": "Repository",
-          "tags": [
-            "GitHub",
-            "Python",
-            "Quant Finance",
-            "TWR",
-            "IRR"
-          ]
+          "tags": ["GitHub", "Python", "Quant Finance", "TWR", "IRR"]
         }
       ]
     },
@@ -60,11 +46,7 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": [
-            "PDF",
-            "CZ",
-            "Insurance"
-          ]
+          "tags": ["PDF", "CZ", "Insurance"]
         },
         {
           "id": "insurance_frequency_modeling_pdf_en",
@@ -73,11 +55,7 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": [
-            "PDF",
-            "EN",
-            "Insurance"
-          ]
+          "tags": ["PDF", "EN", "Insurance"]
         },
         {
           "id": "insurance_frequency_modeling_github",
@@ -86,12 +64,7 @@
           "type": "external",
           "year": 2026,
           "level": "Repository",
-          "tags": [
-            "GitHub",
-            "XGBoost",
-            "GLM",
-            "SHAP"
-          ]
+          "tags": ["GitHub", "XGBoost", "GLM", "SHAP"]
         }
       ]
     },
@@ -107,11 +80,7 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": [
-            "PDF",
-            "CZ",
-            "Insurance"
-          ]
+          "tags": ["PDF", "CZ", "Insurance"]
         },
         {
           "id": "life_insurance_lapse_rate_modelling_pdf_en",
@@ -120,11 +89,7 @@
           "type": "pdf",
           "year": 2026,
           "level": "Portfolio case study",
-          "tags": [
-            "PDF",
-            "EN",
-            "Insurance"
-          ]
+          "tags": ["PDF", "EN", "Insurance"]
         },
         {
           "id": "life_insurance_lapse_rate_modelling_github",
@@ -133,12 +98,7 @@
           "type": "external",
           "year": 2026,
           "level": "Repository",
-          "tags": [
-            "GitHub",
-            "Poisson GLM",
-            "Actuarial",
-            "Temporal Validation"
-          ]
+          "tags": ["GitHub", "Poisson GLM", "Actuarial", "Temporal Validation"]
         }
       ]
     }
