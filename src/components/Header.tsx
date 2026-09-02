@@ -26,18 +26,15 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl items-center px-8 py-4">
-        
-        {/* LEFT */}
+      <nav className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 lg:flex-row lg:items-center lg:gap-0 lg:px-8 lg:py-4">
         <Link
           href="/"
-          className="text-sm font-semibold tracking-tight hover:opacity-80"
+          className="self-start text-sm font-semibold tracking-tight hover:opacity-80"
         >
           Jaroslav Drobek
         </Link>
 
-        {/* RIGHT */}
-        <div className="ml-auto flex items-center gap-3 text-sm">
+        <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm lg:ml-auto lg:justify-end lg:gap-3">
           {items.map((it) => {
             const active = isActive(pathname, it.href);
 
@@ -47,8 +44,8 @@ export function Header() {
                 href={it.href}
                 className={
                   active
-                    ? "rounded-full bg-black px-3 py-1.5 text-white"
-                    : "rounded-full px-3 py-1.5 text-gray-600 hover:text-black"
+                    ? "whitespace-nowrap rounded-full bg-black px-2.5 py-1 text-white sm:px-3 sm:py-1.5"
+                    : "whitespace-nowrap rounded-full px-2.5 py-1 text-gray-600 hover:text-black sm:px-3 sm:py-1.5"
                 }
               >
                 {it.label}
