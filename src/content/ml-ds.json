@@ -101,31 +101,6 @@
           "tags": ["GitHub", "Poisson GLM", "Actuarial", "Temporal Validation"]
         }
       ]
-    },
-    {
-      "slug": "job_agent",
-      "title": "AI Job Agent",
-      "description": "Internal job-search intelligence system combining URL ingestion, LLM-based evaluation, deterministic scoring, and review workflow management.",
-      "items": [
-        {
-          "id": "job_agent_public_overview",
-          "title": "Public Project Overview",
-          "pdfPath": "#",
-          "type": "external",
-          "year": 2026,
-          "level": "Portfolio case study",
-          "tags": ["AI", "LLM", "Python", "Scoring"]
-        },
-        {
-          "id": "job_agent_admin_dashboard",
-          "title": "Job Dashboard",
-          "pdfPath": "/ml-ds/job-agent/public/jobs",
-          "type": "external",
-          "year": 2026,
-          "level": "Private dashboard",
-          "tags": ["Admin", "SQLite", "Workflow", "Jobs"]
-        }
-      ]
     }
   ]
 }

@@ -6,6 +6,7 @@ import vs from "@/content/vs.json";
 import research from "@/content/research.json";
 import insurance from "@/content/insurance.json";
 import mlDs from "@/content/ml-ds.json";
+import applications from "@/content/applications.json";
 import {
   SS_TOPIC_TITLES,
   VS_TOPIC_TITLES,
@@ -42,7 +43,11 @@ const ML_DS_TOPIC_ORDER = [
   "investment_portfolio_analysis",
   "insurance_frequency_modeling",
   "life_insurance_lapse_rate_modelling",
+] as const;
+
+const APPLICATIONS_TOPIC_ORDER = [
   "job_agent",
+  "organy_app",
 ] as const;
 
 const ssTopicOrderIndex = new Map<string, number>(
@@ -59,6 +64,10 @@ const insuranceTopicOrderIndex = new Map<string, number>(
 
 const mlDsTopicOrderIndex = new Map<string, number>(
   ML_DS_TOPIC_ORDER.map((slug, idx) => [slug, idx])
+);
+
+const applicationsTopicOrderIndex = new Map<string, number>(
+  APPLICATIONS_TOPIC_ORDER.map((slug, idx) => [slug, idx])
 );
 
 function sortTopicsByOrder<T extends { slug: string }>(
@@ -94,6 +103,7 @@ const catalogs: Record<SectionKey, Catalog> = {
   research: research as Catalog,
   insurance: insurance as Catalog,
   "ml-ds": mlDs as Catalog,
+  applications: applications as Catalog,
 };
 
 export class LocalRepository implements DataRepository {
@@ -137,6 +147,17 @@ export class LocalRepository implements DataRepository {
         ),
       };
     }
+
+    if (section === "applications") {
+      return {
+        ...catalog,
+        topics: sortTopicsByOrder(
+          topicsWithTitleOverrides,
+          applicationsTopicOrderIndex
+        ),
+      };
+    }
+
     return {
       ...catalog,
       topics: topicsWithTitleOverrides,

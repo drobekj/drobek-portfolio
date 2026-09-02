@@ -27,7 +27,6 @@ export function proxy(request: NextRequest) {
 
   const encodedCredentials = authHeader.slice("Basic ".length);
   const decodedCredentials = atob(encodedCredentials);
-
   const separatorIndex = decodedCredentials.indexOf(":");
 
   if (separatorIndex === -1) {
@@ -46,7 +45,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-  "/ml-ds/job-agent/admin/:path*",
-  "/api/job-agent/:path*",
-],
+    "/ml-ds/job-agent/admin/:path*",
+    "/api/job-agent/:path*",
+  ],
 };

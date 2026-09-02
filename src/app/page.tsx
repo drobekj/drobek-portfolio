@@ -2,6 +2,11 @@ import Link from "next/link";
 
 const sections = [
   {
+    href: "/applications",
+    title: "Applications",
+    description: "Interactive applications and software projects.",
+  },
+  {
     href: "/ml-ds",
     title: "ML/DS",
     description: "Machine learning and data science projects.",

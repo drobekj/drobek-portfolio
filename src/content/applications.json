@@ -1,0 +1,75 @@
+{
+  "topics": [
+    {
+      "slug": "job_agent",
+      "title": "AI Job Agent",
+      "description": "Internal job-search intelligence system combining URL ingestion, LLM-based evaluation, deterministic scoring, and review workflow management.",
+      "items": [
+        {
+          "id": "job_agent_public_overview",
+          "title": "Public Project Overview",
+          "pdfPath": "/applications/job-agent/overview",
+          "type": "external",
+          "year": 2026,
+          "level": "Application overview",
+          "tags": [
+            "AI",
+            "LLM",
+            "Python",
+            "SQLite",
+            "Scoring"
+          ]
+        },
+        {
+          "id": "job_agent_github",
+          "title": "GitHub Repository",
+          "pdfPath": "https://github.com/drobekj/job-agent",
+          "type": "external",
+          "year": 2026,
+          "level": "Repository",
+          "tags": [
+            "GitHub",
+            "Python",
+            "LLM",
+            "Workflow"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "organy_app",
+      "title": "Organy App",
+      "description": "Church music planning and knowledge-management application with role-aware planning, catalog context, melody relationships, and an isolated public demo.",
+      "items": [
+        {
+          "id": "organy_app_demo",
+          "title": "Public Demo",
+          "pdfPath": "https://organy-app-demo.vercel.app",
+          "type": "external",
+          "year": 2026,
+          "level": "Interactive demo",
+          "tags": [
+            "Demo",
+            "Next.js",
+            "Planning",
+            "Knowledge Management"
+          ]
+        },
+        {
+          "id": "organy_app_github",
+          "title": "GitHub Repository",
+          "pdfPath": "https://github.com/drobekj/organy-app",
+          "type": "external",
+          "year": 2026,
+          "level": "Repository",
+          "tags": [
+            "GitHub",
+            "Next.js",
+            "TypeScript",
+            "PostgreSQL"
+          ]
+        }
+      ]
+    }
+  ]
+}

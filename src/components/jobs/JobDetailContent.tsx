@@ -11,7 +11,17 @@ export default function JobDetailContent({
     id,
     mode = "admin",
     }: Props) {
-  const job = getJobDetail(id);
+  let job;
+
+  try {
+    job = getJobDetail(id);
+  } catch (error) {
+    if (mode === "public") {
+      notFound();
+    }
+
+    throw error;
+  }
 
   if (!job) {
     notFound();
@@ -21,8 +31,8 @@ export default function JobDetailContent({
     <div>
         <Breadcrumbs
         items={[
-            { href: "/ml-ds", label: "ML/DS" },
-            { href: "/ml-ds/job_agent", label: "AI Job Agent" },
+            { href: "/applications", label: "Applications" },
+            { href: "/applications/job_agent", label: "AI Job Agent" },
             {
             href:
                 mode === "public"
@@ -108,10 +118,12 @@ export default function JobDetailContent({
             </a>
           </div>
 
-          <div className="md:col-span-2">
-            <span className="text-gray-500">Private note:</span>{" "}
-            {job.privateNote ?? ""}
-          </div>
+          {mode === "admin" ? (
+            <div className="md:col-span-2">
+              <span className="text-gray-500">Private note:</span>{" "}
+              {job.privateNote ?? ""}
+            </div>
+          ) : null}
         </div>
       </div>
 
