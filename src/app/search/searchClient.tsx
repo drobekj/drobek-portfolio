@@ -26,6 +26,60 @@ type SearchResult = {
   sectionLabel: string;
 };
 
+type StudyCatalog = {
+  topics?: Array<{
+    slug: string;
+    title: string;
+    description?: string;
+    summary?: string;
+    items?: Array<{
+      id: string;
+      title: string;
+      tags?: string[];
+      type?: string;
+      year?: number | null;
+      level?: string | null;
+    }>;
+  }>;
+};
+
+type InsuranceCatalog = {
+  topics?: Array<{
+    slug: string;
+    title: string;
+    keywords?: string[];
+    tools?: string[];
+    summary?: string;
+    keyContribution?: string;
+  }>;
+};
+
+type ResearchCatalog = {
+  topics?: Array<{
+    slug: string;
+    title: string;
+    keywords?: string[];
+    journal?: string;
+    year?: number;
+    authors?: string;
+    summary?: string;
+    keyContribution?: string;
+  }>;
+};
+
+type ProjectCatalog = {
+  topics?: Array<{
+    slug: string;
+    title: string;
+    description?: string;
+    summary?: string;
+    items?: Array<{
+      title: string;
+      tags?: string[];
+    }>;
+  }>;
+};
+
 function getSectionLabel(section: SectionKey) {
   switch (section) {
     case "ss":
@@ -50,7 +104,10 @@ function uniqueStrings(values: string[] | undefined) {
 function buildIndex(): SearchResult[] {
   const out: SearchResult[] = [];
 
-  const addStudyCatalog = (section: "ss" | "vs", catalog: any) => {
+  const addStudyCatalog = (
+    section: "ss" | "vs",
+    catalog: StudyCatalog
+  ) => {
     for (const topic of catalog.topics ?? []) {
       for (const item of topic.items ?? []) {
         out.push({
@@ -59,8 +116,8 @@ function buildIndex(): SearchResult[] {
           href: `/${section}/${topic.slug}`,
           tags: uniqueStrings(item.tags),
           type: item.type,
-          year: item.year,
-          level: item.level,
+          year: item.year ?? undefined,
+          level: item.level ?? undefined,
           summary: topic.description ?? topic.summary,
           topicTitle: topic.title,
           section,
@@ -70,7 +127,7 @@ function buildIndex(): SearchResult[] {
     }
   };
 
-  const addInsuranceCatalog = (catalog: any) => {
+  const addInsuranceCatalog = (catalog: InsuranceCatalog) => {
     for (const topic of catalog.topics ?? []) {
       out.push({
         id: topic.slug,
@@ -85,7 +142,7 @@ function buildIndex(): SearchResult[] {
     }
   };
 
-  const addResearchCatalog = (catalog: any) => {
+  const addResearchCatalog = (catalog: ResearchCatalog) => {
     for (const topic of catalog.topics ?? []) {
       out.push({
         id: topic.slug,
@@ -105,11 +162,11 @@ function buildIndex(): SearchResult[] {
 
   const addProjectCatalog = (
     section: "ml-ds" | "applications",
-    catalog: any
+    catalog: ProjectCatalog
   ) => {
     for (const topic of catalog.topics ?? []) {
-      const itemTags = (topic.items ?? []).flatMap((item: any) => item.tags ?? []);
-      const itemTitles = (topic.items ?? []).map((item: any) => item.title).join(" ");
+      const itemTags = (topic.items ?? []).flatMap((item) => item.tags ?? []);
+      const itemTitles = (topic.items ?? []).map((item) => item.title).join(" ");
 
       out.push({
         id: topic.slug,
@@ -125,12 +182,12 @@ function buildIndex(): SearchResult[] {
     }
   };
 
-  addStudyCatalog("ss", ss as any);
-  addStudyCatalog("vs", vs as any);
-  addInsuranceCatalog(insurance as any);
-  addResearchCatalog(research as any);
-  addProjectCatalog("ml-ds", mlDs as any);
-  addProjectCatalog("applications", applications as any);
+  addStudyCatalog("ss", ss);
+  addStudyCatalog("vs", vs);
+  addInsuranceCatalog(insurance);
+  addResearchCatalog(research);
+  addProjectCatalog("ml-ds", mlDs);
+  addProjectCatalog("applications", applications);
 
   return out;
 }
